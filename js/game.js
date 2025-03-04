@@ -10,23 +10,23 @@ function init() {
 }
 
 window.addEventListener("keydown", e => {
-  if ((e.code = "ArrowLeft")) {
+  if (e.code == "ArrowLeft") {
     keyboard.LEFT = true;
   }
 
-  if ((e.code = "ArrowUp")) {
+  if (e.code == "ArrowUp") {
     keyboard.UP = true;
   }
 
-  if ((e.code = "ArrowRight")) {
+  if (e.code == "ArrowRight") {
     keyboard.RIGHT = true;
   }
 
-  if ((e.code = "ArrowDown")) {
+  if (e.code == "ArrowDown") {
     keyboard.DOWN = true;
   }
 
-  if ((e.code = "Space")) {
+  if (e.code == "Space") {
     keyboard.SPACE = true;
   }
 });
