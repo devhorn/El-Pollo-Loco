@@ -30,7 +30,7 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     setInterval(() => {
-      if (this.world.keyboard.RIGHT) {
+      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         let indexImg = this.currentImage % this.imagesWalking.length;
         let path = this.imagesWalking[indexImg];
         this.img = this.imageCache[path];
