@@ -1,7 +1,6 @@
 amountCoins = 15;
-amountChickens = 6;
+
 coins = [];
-chickens = [];
 
 function addCoins() {
   let xPos = 100;
@@ -11,17 +10,10 @@ function addCoins() {
   }
 }
 
-function addChickens() {
-  for (let i = 0; i < amountChickens; i++) {
-    chickens.push(new Chicken());
-  }
-}
-
 addCoins();
-addChickens();
 
 const level1 = new Level(
-  chickens,
+  [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Endboss()],
   [new Cloud()],
   [
     new BackgroundObject("../img/5_background/layers/air.png", -719),
