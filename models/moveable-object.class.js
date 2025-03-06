@@ -6,10 +6,12 @@ class MovableObject {
   width = 100;
   imageCache = [];
   currentImage = 0;
+  currentImageJump = 0;
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
   acceleration = 2.5;
+  offsetY = 10;
 
   applyGravity() {
     setInterval(() => {
@@ -39,7 +41,6 @@ class MovableObject {
 
   moveRight() {
     this.x += this.speed;
-    this.otherDirection = false;
   }
 
   moveLeft() {
@@ -53,7 +54,44 @@ class MovableObject {
     this.currentImage++;
   }
 
+  playJumpAnimation(images) {
+    if (this.currentImageJump < images.length) {
+      let indexImg = this.currentImageJump;
+      let path = images[indexImg];
+      this.img = this.imageCache[path];
+      this.currentImageJump++;
+    } else {
+      this.currentImageJump = 0;
+    }
+  }
+
   jump() {
-    this.speedY = 30;
+    this.speedY = 33;
+  }
+
+  draw(ctx) {
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+  }
+
+  drawFrame(ctx) {
+    if (this instanceof Character || this instanceof Chicken || this instanceof Coin) {
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "blue";
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+  }
+
+  /* isColliding(mo) {
+    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
+  } */
+  isColliding(mo) {
+    return (
+      this.x + this.width >= mo.x &&
+      this.x <= mo.x + mo.width &&
+      this.y + this.offsetY + this.height >= mo.y &&
+      this.y + this.offsetY <= mo.y + mo.height
+    );
   }
 }
