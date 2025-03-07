@@ -1,11 +1,4 @@
-class MovableObject {
-  x = 120;
-  y = 300;
-  img;
-  height = 150;
-  width = 100;
-  imageCache = [];
-  currentImage = 0;
+class MovableObject extends DrawableObject {
   currentImageJump = 0;
   speed = 0.15;
   otherDirection = false;
@@ -31,19 +24,6 @@ class MovableObject {
 
   isAboveGround() {
     return this.y < 120;
-  }
-
-  loadImage(path) {
-    this.img = new Image();
-    this.img.src = path;
-  }
-
-  loadImages(arr) {
-    arr.forEach(path => {
-      let img = new Image();
-      img.src = path;
-      this.imageCache[path] = img;
-    });
   }
 
   moveRight() {
@@ -76,32 +56,6 @@ class MovableObject {
     this.speedY = 33;
   }
 
-  draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  }
-
-  drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof Coin) {
-      ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-  }
-
-  /* isColliding(mo) {
-    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
-  } */
-  /* isColliding(mo) {
-    return (
-      this.x + this.width >= mo.x &&
-      this.x <= mo.x + mo.width &&
-      this.y + this.offsetY + this.height >= mo.y &&
-      this.y + this.offsetY <= mo.y + mo.height
-    );
-  } */
-
   isColliding(mo) {
     return (
       this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
@@ -112,7 +66,7 @@ class MovableObject {
   }
 
   hit() {
-    this.energy -= 5;
+    this.energy -= 20;
     if (this.energy < 0) {
       this.energy = 0;
     } else {
