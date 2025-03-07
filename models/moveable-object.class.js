@@ -11,7 +11,14 @@ class MovableObject {
   otherDirection = false;
   speedY = 0;
   acceleration = 2.5;
-  offsetY = 10;
+  offset = {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  };
+  energy = 100;
+  lastHit = 0;
 
   applyGravity() {
     setInterval(() => {
@@ -86,12 +93,40 @@ class MovableObject {
   /* isColliding(mo) {
     return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
   } */
-  isColliding(mo) {
+  /* isColliding(mo) {
     return (
       this.x + this.width >= mo.x &&
       this.x <= mo.x + mo.width &&
       this.y + this.offsetY + this.height >= mo.y &&
       this.y + this.offsetY <= mo.y + mo.height
     );
+  } */
+
+  isColliding(mo) {
+    return (
+      this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+      this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+      this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
+    );
+  }
+
+  hit() {
+    this.energy -= 5;
+    if (this.energy < 0) {
+      this.energy = 0;
+    } else {
+      this.lastHit = new Date().getTime(); // Milli sekunden seit dem 01.01.1970
+    }
+  }
+
+  isDead() {
+    return this.energy == 0;
+  }
+
+  isHurt() {
+    let timepassed = new Date().getTime() - this.lastHit; // diff in ms
+    timepassed = timepassed / 1000;
+    return timepassed < 1;
   }
 }
