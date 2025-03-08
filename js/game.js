@@ -8,6 +8,13 @@ function init() {
   console.log("My character is ", world.character);
 }
 
+function resetGame() {
+  world = null;
+  level = null;
+  world = new World(canvas, keyboard);
+  document.getElementById("gameOverOverlay").classList.add("dNone");
+}
+
 window.addEventListener("keydown", e => {
   if (e.code == "ArrowLeft") {
     keyboard.LEFT = true;

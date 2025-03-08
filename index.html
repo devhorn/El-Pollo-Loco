@@ -24,9 +24,14 @@
   </head>
   <body onload="init()">
     <div class="content">
-      <h1>El Pollo Loco</h1>
-
       <canvas id="canvas" width="720" height="480"></canvas>
+      <div id="gameOverOverlay" class="gameOverOverlay dNone">
+        <img class="gameOverImg" src="./img/You won, you lost/You lost.png" alt="" />
+        <div class="btnsGameOver">
+          <div class="backToMenu btn">Back to Menu</div>
+          <div class="restartGameButton btn" onclick="resetGame()">Restart Game</div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

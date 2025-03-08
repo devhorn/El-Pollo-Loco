@@ -59,7 +59,8 @@ class Character extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    // Speichere die Intervalle in Variablen
+    this.movementInterval = setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
@@ -77,9 +78,14 @@ class Character extends MovableObject {
       this.world.cameraX = -this.x + 100;
     }, 1000 / 60);
 
-    setInterval(() => {
+    this.animationInterval = setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.imagesDead);
+
+        clearInterval(this.movementInterval);
+        clearInterval(this.animationInterval);
+
+        this.showGameOverScreen();
       } else if (this.isHurt()) {
         this.playAnimation(this.imagesHurt);
       } else if (this.isAboveGround()) {
@@ -90,5 +96,9 @@ class Character extends MovableObject {
         }
       }
     }, 105);
+  }
+
+  showGameOverScreen() {
+    document.getElementById("gameOverOverlay").classList.remove("dNone");
   }
 }

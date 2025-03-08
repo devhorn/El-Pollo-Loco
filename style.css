@@ -13,8 +13,45 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 }
 
 canvas {
   background-color: black;
+}
+
+.dNone {
+  display: none !important;
+}
+
+.gameOverOverlay {
+  height: 480px;
+  width: 720px;
+  background-color: orange;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  flex-direction: column;
+}
+
+.gameOverImg {
+  height: 340px;
+  width: 600px;
+}
+
+.btnsGameOver {
+  display: flex;
+  gap: 64px;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 16px 32px;
+  border: 1px solid black;
+  border-radius: 32px;
+}
+
+.btn:hover {
+  background-color: lightgrey;
 }
