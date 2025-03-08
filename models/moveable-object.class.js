@@ -11,6 +11,7 @@ class MovableObject extends DrawableObject {
     bottom: 0,
   };
   energy = 100;
+  coins = 0;
   lastHit = 0;
 
   applyGravity() {
@@ -63,6 +64,13 @@ class MovableObject extends DrawableObject {
       this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
       this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
     );
+  }
+
+  collectCoin() {
+    this.coins += 20;
+    if (this.coins > 100) {
+      this.coins = 100;
+    }
   }
 
   hit() {
