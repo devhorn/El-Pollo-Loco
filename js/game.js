@@ -8,13 +8,6 @@ function init() {
   console.log("My character is ", world.character);
 }
 
-function resetGame() {
-  world = null;
-  level = null;
-  world = new World(canvas, keyboard);
-  document.getElementById("gameOverOverlay").classList.add("dNone");
-}
-
 window.addEventListener("keydown", e => {
   if (e.code == "ArrowLeft") {
     keyboard.LEFT = true;
@@ -63,21 +56,13 @@ function resetGame() {
   if (world) {
     world.stopAllIntervals(); // Beende alle laufenden Intervalle
   }
-
   coins = [];
   addCoins();
-
-  // Neues Level erstellen
   level1 = createLevel(coins);
-
-  // Neue Welt erstellen
   world = new World(canvas, keyboard);
-
-  // Game Over Overlay verstecken
   document.getElementById("gameOverOverlay").classList.add("dNone");
 }
 
-// Hilfsfunktion zur Erstellung des Levels
 function createLevel(coins) {
   const enemies = [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Endboss()];
   const clouds = [new Cloud()];
@@ -86,7 +71,6 @@ function createLevel(coins) {
   return new Level(enemies, clouds, backgroundObjects, coins);
 }
 
-// Hilfsfunktion zur Erstellung der Hintergrundobjekte
 function createBackgroundObjects() {
   return backgroundObjects;
 }
