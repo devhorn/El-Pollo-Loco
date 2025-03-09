@@ -38,23 +38,55 @@ window.addEventListener("keydown", e => {
 });
 
 window.addEventListener("keyup", e => {
-  if ((e.code = "ArrowLeft")) {
+  if (e.code == "ArrowLeft") {
     keyboard.LEFT = false;
   }
 
-  if ((e.code = "ArrowUp")) {
+  if (e.code == "ArrowUp") {
     keyboard.UP = false;
   }
 
-  if ((e.code = "ArrowRight")) {
+  if (e.code == "ArrowRight") {
     keyboard.RIGHT = false;
   }
 
-  if ((e.code = "ArrowDown")) {
+  if (e.code == "ArrowDown") {
     keyboard.DOWN = false;
   }
 
-  if ((e.code = "Space")) {
+  if (e.code == "Space") {
     keyboard.SPACE = false;
   }
 });
+
+function resetGame() {
+  if (world) {
+    world.stopAllIntervals(); // Beende alle laufenden Intervalle
+  }
+
+  coins = [];
+  addCoins();
+
+  // Neues Level erstellen
+  level1 = createLevel(coins);
+
+  // Neue Welt erstellen
+  world = new World(canvas, keyboard);
+
+  // Game Over Overlay verstecken
+  document.getElementById("gameOverOverlay").classList.add("dNone");
+}
+
+// Hilfsfunktion zur Erstellung des Levels
+function createLevel(coins) {
+  const enemies = [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Endboss()];
+  const clouds = [new Cloud()];
+  const backgroundObjects = createBackgroundObjects();
+
+  return new Level(enemies, clouds, backgroundObjects, coins);
+}
+
+// Hilfsfunktion zur Erstellung der Hintergrundobjekte
+function createBackgroundObjects() {
+  return backgroundObjects;
+}

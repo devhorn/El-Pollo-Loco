@@ -104,4 +104,10 @@ class World {
     mo.x = mo.x * -1;
     this.ctx.restore();
   }
+
+  stopAllIntervals() {
+    if (this.character && typeof this.character.stopAnimation === "function") {
+      this.character.stopAnimation();
+    }
+  }
 }

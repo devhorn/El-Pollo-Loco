@@ -99,6 +99,14 @@ class Character extends MovableObject {
   }
 
   showGameOverScreen() {
-    document.getElementById("gameOverOverlay").classList.remove("dNone");
+    const overlay = document.getElementById("gameOverOverlay");
+    if (overlay) {
+      overlay.classList.remove("dNone");
+    }
+  }
+
+  stopAnimation() {
+    clearInterval(this.movementInterval);
+    clearInterval(this.animationInterval);
   }
 }

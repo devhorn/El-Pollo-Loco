@@ -1,4 +1,4 @@
-amountCoins = 15;
+amountCoins = 10;
 
 coins = [];
 
@@ -6,13 +6,13 @@ function addCoins() {
   let xPos = 100;
   for (let i = 0; i < amountCoins; i++) {
     coins.push(new Coin(xPos));
-    xPos += 100;
+    xPos += 200;
   }
 }
 
 addCoins();
 
-const level1 = new Level(
+let level1 = new Level(
   [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Endboss()],
   [new Cloud()],
   [
