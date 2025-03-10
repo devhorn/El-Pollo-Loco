@@ -48,19 +48,32 @@ canvas {
 .btn {
   cursor: pointer;
   padding: 16px 32px;
-  border: 1px solid black;
   border-radius: 32px;
+  background-color: #ae2012;
+  color: #e9d8a6;
+  border: 1px solid #e9d8a6;
+  font-weight: bold;
 }
 
 .btn:hover {
-  background-color: lightgrey;
+  background-color: #af4c43;
 }
 
 .gameStartOverlay {
   height: 480px;
   width: 720px;
-  background-image: ("./img/9_intro_outro_screens/start/startscreen_1.png");
+  background-image: url("./img/9_intro_outro_screens/start/startscreen_1.png");
+  background-size: 720px 480px;
+  background-repeat: no-repeat;
   position: absolute;
-  object-fit: cover;
-  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+}
+
+.btnsStartGame {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  gap: 32px;
 }

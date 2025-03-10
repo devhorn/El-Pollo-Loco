@@ -22,7 +22,7 @@
     <title>El Pollo Loco</title>
     <link rel="icon" type="image/x-icon" href="./img/favicon-96x96.png" />
   </head>
-  <body onload="init()">
+  <body>
     <div class="content">
       <canvas id="canvas" width="720" height="480"></canvas>
       <div id="gameOverOverlay" class="gameOverOverlay dNone">
@@ -30,6 +30,12 @@
         <div class="btnsGameOver">
           <div class="backToMenu btn">Back to Menu</div>
           <div class="restartGameButton btn" onclick="resetGame()">Restart Game</div>
+        </div>
+      </div>
+      <div id="gameStartOverlay" class="gameStartOverlay">
+        <div class="btnsStartGame">
+          <div onclick="startGame()" class="btn">Start game</div>
+          <div class="btn">Settings</div>
         </div>
       </div>
     </div>

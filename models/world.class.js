@@ -106,8 +106,14 @@ class World {
   }
 
   stopAllIntervals() {
-    if (this.character && typeof this.character.stopAnimation === "function") {
+    if (this.character) {
       this.character.stopAnimation();
     }
   }
+
+  /* stopAllIntervals() {
+    if (this.character && typeof this.character.stopAnimation === "function") {
+      this.character.stopAnimation();
+    }
+  } */
 }
