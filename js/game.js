@@ -54,7 +54,7 @@ window.addEventListener("keyup", e => {
 
 function resetGame() {
   if (world) {
-    world.stopAllIntervals(); // Beende alle laufenden Intervalle
+    world.stopAllIntervals();
   }
   coins = [];
   addCoins();

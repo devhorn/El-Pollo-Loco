@@ -55,3 +55,12 @@ canvas {
 .btn:hover {
   background-color: lightgrey;
 }
+
+.gameStartOverlay {
+  height: 480px;
+  width: 720px;
+  background-image: ("./img/9_intro_outro_screens/start/startscreen_1.png");
+  position: absolute;
+  object-fit: cover;
+  z-index: 5;
+}
