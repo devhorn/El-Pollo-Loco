@@ -10,8 +10,6 @@ function startGame() {
 }
 
 window.addEventListener("keydown", e => {
-  console.log(e);
-
   if (e.code == "ArrowLeft") {
     keyboard.LEFT = true;
   }
@@ -68,8 +66,10 @@ function resetGame() {
     world.stopAllIntervals();
   }
   coins = [];
+  bottles = [];
   addCoins();
-  level1 = createLevel(coins);
+  addBottles();
+  level1 = createLevel(coins, bottles);
   world = new World(canvas, keyboard);
   document.getElementById("gameOverOverlay").classList.add("dNone");
 }
@@ -78,7 +78,7 @@ function createLevel(coins) {
   const enemies = [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Endboss()];
   const clouds = [new Cloud()];
   const backgroundObjects = createBackgroundObjects();
-  return new Level(enemies, clouds, backgroundObjects, coins);
+  return new Level(enemies, clouds, backgroundObjects, coins, bottles);
 }
 
 function createBackgroundObjects() {

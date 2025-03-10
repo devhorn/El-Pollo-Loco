@@ -39,7 +39,6 @@ class World {
       this.level.coins = this.level.coins.filter(coin => {
         if (this.character.isColliding(coin)) {
           this.character.collectCoin();
-          console.log(this.character.coins);
           this.statusbarCoin.setPercentage(this.character.coins);
           return false;
         }
@@ -54,7 +53,9 @@ class World {
     this.ctx.translate(this.cameraX, 0);
     this.addObjectstoMap(this.level.backgroundObjects);
 
+    this.addObjectstoMap(this.level.bottles);
     this.addObjectstoMap(this.level.coins);
+
     this.addObjectstoMap(this.level.enemies);
     this.addToMap(this.character);
     this.addObjectstoMap(this.level.clouds);

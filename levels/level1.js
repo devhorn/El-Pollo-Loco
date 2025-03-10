@@ -1,6 +1,16 @@
 amountCoins = 10;
+amountBottles = 7;
 
 coins = [];
+bottles = [];
+
+function addBottles() {
+  let xPos = 200;
+  for (let i = 0; i < amountBottles; i++) {
+    bottles.push(new Bottle(xPos));
+    xPos += 220;
+  }
+}
 
 function addCoins() {
   let xPos = 100;
@@ -11,6 +21,7 @@ function addCoins() {
 }
 
 addCoins();
+addBottles();
 
 let level1 = new Level(
   [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Endboss()],
@@ -46,5 +57,6 @@ let level1 = new Level(
     new BackgroundObject("../img/5_background/layers/2_second_layer/1.png", 719 * 4),
     new BackgroundObject("../img/5_background/layers/1_first_layer/1.png", 719 * 4),
   ],
-  coins
+  coins,
+  bottles
 );

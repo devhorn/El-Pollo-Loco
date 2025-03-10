@@ -1,4 +1,4 @@
-class Coin extends CollectableObject {
+class CollectableObject extends DrawableObject {
   x = 200;
   y = 300 - Math.random() * 200;
   width = 150;
@@ -10,9 +10,4 @@ class Coin extends CollectableObject {
     right: 30,
     bottom: 30,
   };
-
-  constructor(x) {
-    super().loadImage("../img/8_coin/coin_2.png");
-    this.x += x;
-  }
 }
