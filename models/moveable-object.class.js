@@ -1,4 +1,4 @@
-class MovableObject extends DrawableObject {
+class MoveableObject extends DrawableObject {
   currentImageJump = 0;
   speed = 0.15;
   otherDirection = false;

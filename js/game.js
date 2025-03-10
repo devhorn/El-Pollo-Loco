@@ -10,6 +10,8 @@ function startGame() {
 }
 
 window.addEventListener("keydown", e => {
+  console.log(e);
+
   if (e.code == "ArrowLeft") {
     keyboard.LEFT = true;
   }
@@ -27,6 +29,10 @@ window.addEventListener("keydown", e => {
   }
 
   if (e.code == "Space") {
+    keyboard.SPACE = true;
+  }
+
+  if (e.code == "KeyD") {
     keyboard.SPACE = true;
   }
 });
@@ -51,6 +57,10 @@ window.addEventListener("keyup", e => {
   if (e.code == "Space") {
     keyboard.SPACE = false;
   }
+
+  if (e.code == "KeyD") {
+    keyboard.SPACE = false;
+  }
 });
 
 function resetGame() {
@@ -68,7 +78,6 @@ function createLevel(coins) {
   const enemies = [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Endboss()];
   const clouds = [new Cloud()];
   const backgroundObjects = createBackgroundObjects();
-
   return new Level(enemies, clouds, backgroundObjects, coins);
 }
 

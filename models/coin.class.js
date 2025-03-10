@@ -1,4 +1,4 @@
-class Coin extends MovableObject {
+class Coin extends MoveableObject {
   x = 200;
   y = 300 - Math.random() * 200;
   width = 150;

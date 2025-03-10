@@ -38,12 +38,12 @@ class World {
     setInterval(() => {
       this.level.coins = this.level.coins.filter(coin => {
         if (this.character.isColliding(coin)) {
-          this.character.collectCoin(); // Coin dem Charakter hinzufügen
-          console.log(this.character.coins); // Anzahl der gesammelten Coins
-          this.statusbarCoin.setPercentage(this.character.coins); // Statusbar aktualisieren
-          return false; // Entferne diese Münze aus dem Array
+          this.character.collectCoin();
+          console.log(this.character.coins);
+          this.statusbarCoin.setPercentage(this.character.coins);
+          return false;
         }
-        return true; // Behalte die Münze im Array
+        return true;
       });
     }, 1000);
   }

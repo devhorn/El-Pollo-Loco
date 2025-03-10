@@ -1,4 +1,4 @@
-class Chicken extends MovableObject {
+class Chicken extends MoveableObject {
   x = 400 + Math.random() * 500;
   y = 340;
   height = 80;
