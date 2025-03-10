@@ -47,6 +47,19 @@ class World {
     }, 1000);
   }
 
+  checkCollisionBottle() {
+    setInterval(() => {
+      this.level.bottles = this.level.bottles.filter(bottle => {
+        if (this.character.isColliding(bottle) && this.character.bottles < 100) {
+          this.character.collectBottle();
+          this.statusbarBottle.setPercentage(this.character.bottles);
+          return false;
+        }
+        return true;
+      });
+    }, 1000);
+  }
+
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -69,6 +82,7 @@ class World {
 
     this.ctx.translate(-this.cameraX, 0);
     this.checkCollisionCoin();
+    this.checkCollisionBottle();
 
     // Draw wird immer wieder aufgerufen
     let self = this;

@@ -61,7 +61,6 @@ class Character extends MoveableObject {
   }
 
   animate() {
-    // Speichere die Intervalle in Variablen
     this.movementInterval = setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
