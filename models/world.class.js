@@ -17,7 +17,6 @@ class World {
     this.draw();
     this.setWorld();
     this.checkCollisionEnemie();
-    this.checkCollisionCoin();
   }
 
   setWorld() {
@@ -37,12 +36,14 @@ class World {
 
   checkCollisionCoin() {
     setInterval(() => {
-      this.level.coins.forEach(coin => {
+      this.level.coins = this.level.coins.filter(coin => {
         if (this.character.isColliding(coin)) {
-          this.character.collectCoin();
-          console.log(this.character.coins);
-          this.statusbarCoin.setPercentage(this.character.coins);
+          this.character.collectCoin(); // Coin dem Charakter hinzufügen
+          console.log(this.character.coins); // Anzahl der gesammelten Coins
+          this.statusbarCoin.setPercentage(this.character.coins); // Statusbar aktualisieren
+          return false; // Entferne diese Münze aus dem Array
         }
+        return true; // Behalte die Münze im Array
       });
     }, 1000);
   }
@@ -53,6 +54,11 @@ class World {
     this.ctx.translate(this.cameraX, 0);
     this.addObjectstoMap(this.level.backgroundObjects);
 
+    this.addObjectstoMap(this.level.coins);
+    this.addObjectstoMap(this.level.enemies);
+    this.addToMap(this.character);
+    this.addObjectstoMap(this.level.clouds);
+
     this.ctx.translate(-this.cameraX, 0);
     // ------------ space for fixed Objects -------------- //
     this.addToMap(this.statusbarHealth);
@@ -60,12 +66,8 @@ class World {
     this.addToMap(this.statusbarBottle);
     this.ctx.translate(this.cameraX, 0);
 
-    this.addObjectstoMap(this.level.coins);
-    this.addObjectstoMap(this.level.enemies);
-    this.addToMap(this.character);
-    this.addObjectstoMap(this.level.clouds);
-
     this.ctx.translate(-this.cameraX, 0);
+    this.checkCollisionCoin();
 
     // Draw wird immer wieder aufgerufen
     let self = this;
@@ -110,10 +112,4 @@ class World {
       this.character.stopAnimation();
     }
   }
-
-  /* stopAllIntervals() {
-    if (this.character && typeof this.character.stopAnimation === "function") {
-      this.character.stopAnimation();
-    }
-  } */
 }
