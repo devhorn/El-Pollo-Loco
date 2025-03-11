@@ -9,6 +9,7 @@ class World {
   statusbarHealth = new Statusbar(statusbarImagesHealth, 0, 100);
   statusbarCoin = new Statusbar(statusbarImagesCoins, 50, 0);
   statusbarBottle = new Statusbar(statusbarImagesBottles, 100, 0);
+  throwableObjects = [];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -17,6 +18,7 @@ class World {
     this.draw();
     this.setWorld();
     this.checkCollisionEnemie();
+    this.checkThrowObject();
   }
 
   setWorld() {
@@ -60,6 +62,15 @@ class World {
     }, 1000);
   }
 
+  checkThrowObject() {
+    setInterval(() => {
+      if (this.keyboard.D) {
+        let bottle = new Throwableobject(this.character.x + 50, this.character.y + 50);
+        this.throwableObjects.push(bottle);
+      }
+    }, 150);
+  }
+
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -70,6 +81,7 @@ class World {
     this.addObjectstoMap(this.level.coins);
 
     this.addObjectstoMap(this.level.enemies);
+    this.addObjectstoMap(this.throwableObjects);
     this.addToMap(this.character);
     this.addObjectstoMap(this.level.clouds);
 
