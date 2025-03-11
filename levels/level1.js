@@ -3,6 +3,7 @@ amountBottles = 7;
 
 coins = [];
 bottles = [];
+enemies = [new Chicken(100), new Chicken(200), new Chicken(300), new Chicken(400), new Chicken(500), new Endboss()];
 
 function addBottles() {
   let xPos = 200;
@@ -24,7 +25,7 @@ addCoins();
 addBottles();
 
 let level1 = new Level(
-  [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Endboss()],
+  enemies,
   [
     new Cloud("../img/5_background/layers/4_clouds/1.png", 0),
     new Cloud("../img/5_background/layers/4_clouds/2.png", 500),
