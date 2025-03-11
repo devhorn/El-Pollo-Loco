@@ -64,9 +64,12 @@ class World {
 
   checkThrowObject() {
     setInterval(() => {
-      if (this.keyboard.D) {
-        let bottle = new Throwableobject(this.character.x + 50, this.character.y + 50);
+      if (this.keyboard.D && this.character.bottles > 0) {
+        let bottle = new Throwableobject();
         this.throwableObjects.push(bottle);
+        bottle.throw(this.character.x + 50, this.character.y + 50);
+        this.character.bottles -= 20;
+        this.statusbarBottle.setPercentage(this.character.bottles);
       }
     }, 150);
   }
