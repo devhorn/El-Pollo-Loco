@@ -17,49 +17,41 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.checkCollisionEnemie();
     this.checkThrowObject();
+    this.checkCollisions();
   }
 
   setWorld() {
     this.character.world = this;
   }
 
-  checkCollisionEnemie() {
+  checkCollisionsCollectableObjects() {
     setInterval(() => {
-      this.level.enemies.forEach(enemy => {
-        if (this.character.isColliding(enemy)) {
-          this.character.hit();
-          this.statusbarHealth.setPercentage(this.character.energy);
-        }
-      });
+      this.checkCollisionCoin();
+      this.checkCollisionBottle();
     }, 1000);
   }
 
   checkCollisionCoin() {
-    setInterval(() => {
-      this.level.coins = this.level.coins.filter(coin => {
-        if (this.character.isColliding(coin)) {
-          this.character.collectCoin();
-          this.statusbarCoin.setPercentage(this.character.coins);
-          return false;
-        }
-        return true;
-      });
-    }, 1000);
+    this.level.coins = this.level.coins.filter(coin => {
+      if (this.character.isColliding(coin)) {
+        this.character.collectCoin();
+        this.statusbarCoin.setPercentage(this.character.coins);
+        return false;
+      }
+      return true;
+    });
   }
 
   checkCollisionBottle() {
-    setInterval(() => {
-      this.level.bottles = this.level.bottles.filter(bottle => {
-        if (this.character.isColliding(bottle) && this.character.bottles < 100) {
-          this.character.collectBottle();
-          this.statusbarBottle.setPercentage(this.character.bottles);
-          return false;
-        }
-        return true;
-      });
-    }, 1000);
+    this.level.bottles = this.level.bottles.filter(bottle => {
+      if (this.character.isColliding(bottle) && this.character.bottles < 100) {
+        this.character.collectBottle();
+        this.statusbarBottle.setPercentage(this.character.bottles);
+        return false;
+      }
+      return true;
+    });
   }
 
   checkThrowObject() {
@@ -72,6 +64,52 @@ class World {
         this.statusbarBottle.setPercentage(this.character.bottles);
       }
     }, 150);
+  }
+
+  checkCollisions() {
+    setInterval(() => {
+      this.level.enemies.forEach(enemy => {
+        if (this.character.isColliding(enemy)) {
+          // Fall A: Character fällt runter
+          if (this.character.speedY < 0 && this.character.isAboveGround()) {
+            console.log("jump on chicken");
+            this.character.speedY = 3; // Bounce back
+
+            // Chicken töten
+            // Bild ändern von Chicken
+            // Sound abpspielen
+            setTimeout(() => {
+              // Aus dem Array entfernen
+            }, 1000);
+          } else {
+            // Fall B: Character ist auf dem Boden
+            this.character.hit();
+            this.statusbarHealth.setPercentage(this.character.energy);
+            console.log("Character hit", this.character.energy);
+          }
+        }
+      });
+    }, 1000);
+  }
+
+  /*  checkCollisionEnemie() {
+    setInterval(() => {
+      this.level.enemies.forEach(enemy => {
+        if (this.character.isColliding(enemy)) {
+          this.character.hit();
+          this.statusbarHealth.setPercentage(this.character.energy);
+        }
+      });
+    }, 1000);
+  } */
+
+  // Methode zum Behandeln des Todes eines Chickens
+  handleChickenDeath(enemy, index) {
+    enemy.loadImage("../img/3_enemies_chicken/chicken_normal/2_dead/dead.png");
+    setTimeout(() => {
+      this.level.enemies.splice(index, 1); // Chicken aus dem Array entfernen
+    }, 500);
+    this.character.speedY = 15; // Charakter springt leicht nach oben
   }
 
   draw() {
@@ -96,8 +134,7 @@ class World {
     this.ctx.translate(this.cameraX, 0);
 
     this.ctx.translate(-this.cameraX, 0);
-    this.checkCollisionCoin();
-    this.checkCollisionBottle();
+    this.checkCollisionsCollectableObjects();
 
     // Draw wird immer wieder aufgerufen
     let self = this;
