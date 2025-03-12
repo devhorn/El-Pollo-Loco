@@ -77,12 +77,8 @@ class World {
       let stomped = false;
       if (this.character.isCollidingOnTop(enemy) && this.character.speedY < 0) {
         this.character.jump();
-        enemy.hit();
+        this.defeatEnemy(enemy);
         stomped = true;
-        this.character.lastHit = new Date().getTime() - 900;
-        if (enemy.isDead()) {
-          this.defeatEnemy(enemy);
-        }
       }
       if (!stomped && this.character.isColliding(enemy)) {
         this.character.hit();
