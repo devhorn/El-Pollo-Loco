@@ -72,6 +72,7 @@ function resetGame() {
   level1 = createLevel(coins, bottles);
   world = new World(canvas, keyboard);
   document.getElementById("gameOverOverlay").classList.add("dNone");
+  document.getElementById("gameWonOverlay").classList.add("dNone");
 }
 
 function createLevel(coins) {
