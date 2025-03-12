@@ -17,18 +17,12 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.run();
+    this.checkCollisionEnemie();
     this.checkThrowObject();
   }
 
   setWorld() {
     this.character.world = this;
-  }
-
-  run() {
-    setInterval(() => {
-      this.checkCollisions();
-    }, 1000);
   }
 
   checkCollisionsCollectableObjects() {
@@ -72,17 +66,23 @@ class World {
     }, 150);
   }
 
-  checkCollisions() {
+  checkCollisionEnemie() {
+    setInterval(() => {
+      this.level.enemies.forEach(enemy => {
+        if (this.character.isColliding(enemy)) {
+          this.character.hit();
+          this.statusbarHealth.setPercentage(this.character.energy);
+        }
+      });
+    }, 1000);
+  }
+
+  checkCollisionsTop() {
     this.level.enemies.forEach(enemy => {
-      let stomped = false;
       if (this.character.isCollidingOnTop(enemy) && this.character.speedY < 0) {
+        console.log("Treffer von oben!");
         this.character.jump();
         this.defeatEnemy(enemy);
-        stomped = true;
-      }
-      if (!stomped && this.character.isColliding(enemy)) {
-        this.character.hit();
-        this.statusbarHealth.setPercentage(this.character.energy);
       }
     });
   }
@@ -92,26 +92,6 @@ class World {
     setTimeout(() => {
       this.level.enemies = this.level.enemies.filter(e => e !== enemy);
     }, 500);
-  }
-
-  /*  checkCollisionEnemie() {
-    setInterval(() => {
-      this.level.enemies.forEach(enemy => {
-        if (this.character.isColliding(enemy)) {
-          this.character.hit();
-          this.statusbarHealth.setPercentage(this.character.energy);
-        }
-      });
-    }, 1000);
-  } */
-
-  // Methode zum Behandeln des Todes eines Chickens
-  handleChickenDeath(enemy, index) {
-    enemy.loadImage("../img/3_enemies_chicken/chicken_normal/2_dead/dead.png");
-    setTimeout(() => {
-      this.level.enemies.splice(index, 1); // Chicken aus dem Array entfernen
-    }, 500);
-    this.character.speedY = 15; // Charakter springt leicht nach oben
   }
 
   draw() {
@@ -137,6 +117,7 @@ class World {
 
     this.ctx.translate(-this.cameraX, 0);
     this.checkCollisionsCollectableObjects();
+    this.checkCollisionsTop();
 
     // Draw wird immer wieder aufgerufen
     let self = this;
