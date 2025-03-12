@@ -63,6 +63,15 @@ class MoveableObject extends DrawableObject {
     );
   }
 
+  isCollidingOnTop(obj) {
+    return (
+      this.x + this.width / 2 > obj.x &&
+      this.x + this.width / 2 < obj.x + obj.width &&
+      this.y + this.height > obj.y &&
+      this.y + this.height < obj.y + obj.height / 2
+    );
+  }
+
   collectCoin() {
     this.coins += 20;
     if (this.coins > 100) {
@@ -94,5 +103,17 @@ class MoveableObject extends DrawableObject {
     let timepassed = new Date().getTime() - this.lastHit; // diff in ms
     timepassed = timepassed / 1000;
     return timepassed < 1;
+  }
+
+  die() {
+    if (this.isDefeated) return;
+    this.isDefeated = true;
+    this.speed = 0;
+
+    if (this.IMAGES_DEAD) {
+      this.playAnimation(this.IMAGES_DEAD);
+    } else if (this.deathImage) {
+      this.loadImage(this.deathImage);
+    }
   }
 }

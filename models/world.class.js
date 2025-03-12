@@ -17,12 +17,18 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
+    this.run();
     this.checkThrowObject();
-    this.checkCollisions();
   }
 
   setWorld() {
     this.character.world = this;
+  }
+
+  run() {
+    setInterval(() => {
+      this.checkCollisions();
+    }, 1000);
   }
 
   checkCollisionsCollectableObjects() {
@@ -67,29 +73,29 @@ class World {
   }
 
   checkCollisions() {
-    setInterval(() => {
-      this.level.enemies.forEach(enemy => {
-        if (this.character.isColliding(enemy)) {
-          // Fall A: Character fällt runter
-          if (this.character.speedY < 0 && this.character.isAboveGround()) {
-            console.log("jump on chicken");
-            this.character.speedY = 3; // Bounce back
-
-            // Chicken töten
-            // Bild ändern von Chicken
-            // Sound abpspielen
-            setTimeout(() => {
-              // Aus dem Array entfernen
-            }, 1000);
-          } else {
-            // Fall B: Character ist auf dem Boden
-            this.character.hit();
-            this.statusbarHealth.setPercentage(this.character.energy);
-            console.log("Character hit", this.character.energy);
-          }
+    this.level.enemies.forEach(enemy => {
+      let stomped = false;
+      if (this.character.isCollidingOnTop(enemy) && this.character.speedY < 0) {
+        this.character.jump();
+        enemy.hit();
+        stomped = true;
+        this.character.lastHit = new Date().getTime() - 900;
+        if (enemy.isDead()) {
+          this.defeatEnemy(enemy);
         }
-      });
-    }, 1000);
+      }
+      if (!stomped && this.character.isColliding(enemy)) {
+        this.character.hit();
+        this.statusbarHealth.setPercentage(this.character.energy);
+      }
+    });
+  }
+
+  defeatEnemy(enemy) {
+    enemy.die();
+    setTimeout(() => {
+      this.level.enemies = this.level.enemies.filter(e => e !== enemy);
+    }, 500);
   }
 
   /*  checkCollisionEnemie() {

@@ -9,6 +9,7 @@ class Chicken extends MoveableObject {
   ];
   speed = 0.15 + Math.random() * 0.3;
   isDead = false;
+  imageDeath = "../img/3_enemies_chicken/chicken_normal/2_dead/dead.png";
 
   constructor(x) {
     super().loadImage("../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png");
