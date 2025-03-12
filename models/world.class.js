@@ -21,6 +21,7 @@ class World {
     this.checkCollisionEnemie();
     this.checkThrowObject();
     this.checkCollisionThrowableWithEnemy();
+    this.activateEndboss();
   }
 
   setWorld() {
@@ -82,7 +83,6 @@ class World {
   checkCollisionsTop() {
     this.level.enemies.forEach(enemy => {
       if (this.character.isCollidingOnTop(enemy) && this.character.speedY < 0) {
-        console.log("Treffer von oben!");
         this.character.jump();
         this.defeatEnemy(enemy);
       }
@@ -176,5 +176,15 @@ class World {
     if (this.character) {
       this.character.stopAnimation();
     }
+  }
+
+  activateEndboss() {
+    setInterval(() => {
+      this.level.enemies.forEach(enemy => {
+        if (enemy instanceof Endboss) {
+          enemy.update(this.character.x);
+        }
+      });
+    }, 1000 / 60);
   }
 }
