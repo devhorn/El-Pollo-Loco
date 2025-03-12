@@ -3,7 +3,18 @@ amountBottles = 7;
 
 coins = [];
 bottles = [];
-enemies = [new Chicken(100), new Chicken(200), new Chicken(300), new Chicken(400), new Chicken(500), new Endboss()];
+enemies = [
+  new Chicken(),
+  new ChickenSmall(),
+  new Chicken(),
+  new ChickenSmall(),
+  new Chicken(),
+  new ChickenSmall(),
+  new Chicken(),
+  new ChickenSmall(),
+  new Chicken(),
+  new Endboss(),
+];
 
 function addBottles() {
   let xPos = 200;

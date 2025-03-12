@@ -86,7 +86,18 @@ function createBackgroundObjects() {
 }
 
 function createEnemies() {
-  return [new Chicken(100), new Chicken(200), new Chicken(300), new Chicken(400), new Chicken(500), new Endboss()];
+  return [
+    new Chicken(),
+    new ChickenSmall(),
+    new Chicken(),
+    new ChickenSmall(),
+    new Chicken(),
+    new ChickenSmall(),
+    new Chicken(),
+    new ChickenSmall(),
+    new Chicken(),
+    new Endboss(),
+  ];
 }
 
 function createClouds() {
