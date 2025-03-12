@@ -105,7 +105,7 @@ class MoveableObject extends DrawableObject {
     return timepassed < 1;
   }
 
-  die() {
+  /* die() {
     if (this.isDefeated) return;
     this.isDefeated = true;
     this.speed = 0;
@@ -115,5 +115,5 @@ class MoveableObject extends DrawableObject {
     } else if (this.deathImage) {
       this.loadImage(this.deathImage);
     }
-  }
+  } */
 }
