@@ -9,7 +9,7 @@ class World {
   statusbarHealth = new Statusbar(statusbarImagesHealth, 20, 0, 100);
   statusbarCoin = new Statusbar(statusbarImagesCoins, 20, 50, 0);
   statusbarBottle = new Statusbar(statusbarImagesBottles, 20, 100, 0);
-  statusBarEndboss = new Statusbar(statusbarImagesEndboss, 2650, 0, 100);
+
   throwableObjects = [];
 
   constructor(canvas, keyboard) {
@@ -133,7 +133,7 @@ class World {
     this.addToMap(this.statusbarCoin);
     this.addToMap(this.statusbarBottle);
     this.ctx.translate(this.cameraX, 0);
-    this.addToMap(this.statusBarEndboss);
+
     this.ctx.translate(-this.cameraX, 0);
     this.checkCollisionsCollectableObjects();
     this.checkCollisionsTop();
