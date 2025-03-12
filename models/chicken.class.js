@@ -32,14 +32,14 @@ class Chicken extends MoveableObject {
   }
 
   die() {
-    if (this.isDead) return; // Sicherstellen, dass die Methode nur einmal ausgeführt wird
+    if (this.isDead) return;
     this.isDead = true;
     clearInterval(this.walkInterval);
     clearInterval(this.moveInterval);
 
-    this.loadImage(this.imageDeath); // Bild des toten Huhns laden
+    this.loadImage(this.imageDeath);
     setTimeout(() => {
-      this.x = -9999; // Entferne das Huhn aus dem sichtbaren Bereich
-    }, 500); // Nach 500 ms
+      this.x = -9999;
+    }, 500);
   }
 }

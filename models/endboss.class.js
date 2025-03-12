@@ -28,16 +28,18 @@ class Endboss extends MoveableObject {
   y = 50;
   width = 300;
   height = 400;
-
   triggerActivated = false;
   movingLeft = true;
   startingX = 2600;
   minX = 1600;
+  hits = 0;
 
   constructor() {
     super().loadImage(this.imagesAlert[0]);
     this.loadImages(this.imagesAlert);
     this.loadImages(this.imagesWalking);
+    this.loadImages(this.imagesHurt);
+    this.loadImages(this.imagesDead);
     this.speed = 1;
     this.animateAlert();
   }
@@ -69,5 +71,37 @@ class Endboss extends MoveableObject {
         clearInterval(this.animationInterval);
       }
     }, 1000 / 60);
+  }
+
+  hitByBottle() {
+    if (this.isDefeated) return;
+    if (this.hits < 3) {
+      this.hits++;
+      clearInterval(this.movementInterval);
+      clearInterval(this.animationInterval);
+      let hurtInterval = setInterval(() => {
+        this.playAnimation(this.imagesHurt);
+      }, 150);
+      setTimeout(() => {
+        clearInterval(hurtInterval);
+        if (!this.isDefeated) {
+          this.startMovement();
+        }
+      }, 1000);
+    } else {
+      this.dieBoss();
+    }
+  }
+
+  dieBoss() {
+    clearInterval(this.movementInterval);
+    clearInterval(this.animationInterval);
+    this.isDefeated = true;
+    let deadInterval = setInterval(() => {
+      this.playAnimation(this.imagesDead);
+    }, 150);
+    setTimeout(() => {
+      clearInterval(deadInterval);
+    }, 1000);
   }
 }
