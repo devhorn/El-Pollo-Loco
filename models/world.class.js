@@ -6,9 +6,10 @@ class World {
   keyboard;
   world;
   cameraX = 0;
-  statusbarHealth = new Statusbar(statusbarImagesHealth, 0, 100);
-  statusbarCoin = new Statusbar(statusbarImagesCoins, 50, 0);
-  statusbarBottle = new Statusbar(statusbarImagesBottles, 100, 0);
+  statusbarHealth = new Statusbar(statusbarImagesHealth, 20, 0, 100);
+  statusbarCoin = new Statusbar(statusbarImagesCoins, 20, 50, 0);
+  statusbarBottle = new Statusbar(statusbarImagesBottles, 20, 100, 0);
+  statusBarEndboss = new Statusbar(statusbarImagesEndboss, 2650, 0, 100);
   throwableObjects = [];
 
   constructor(canvas, keyboard) {
@@ -19,6 +20,7 @@ class World {
     this.setWorld();
     this.checkCollisionEnemie();
     this.checkThrowObject();
+    this.checkCollisionThrowableWithEnemy();
   }
 
   setWorld() {
@@ -87,6 +89,19 @@ class World {
     });
   }
 
+  checkCollisionThrowableWithEnemy() {
+    setInterval(() => {
+      this.throwableObjects.forEach((bottle, bottleIndex) => {
+        this.level.enemies.forEach(enemy => {
+          if (bottle.isColliding(enemy)) {
+            enemy.die();
+            this.throwableObjects.splice(bottleIndex, 1);
+          }
+        });
+      });
+    }, 50);
+  }
+
   defeatEnemy(enemy) {
     enemy.die();
     setTimeout(() => {
@@ -114,7 +129,7 @@ class World {
     this.addToMap(this.statusbarCoin);
     this.addToMap(this.statusbarBottle);
     this.ctx.translate(this.cameraX, 0);
-
+    this.addToMap(this.statusBarEndboss);
     this.ctx.translate(-this.cameraX, 0);
     this.checkCollisionsCollectableObjects();
     this.checkCollisionsTop();

@@ -25,6 +25,15 @@ let statusbarImagesBottles = [
   "../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png",
 ];
 
+let statusbarImagesEndboss = [
+  "../img/7_statusbars/1_statusbar/2_statusbar_health/orange/0.png",
+  "../img/7_statusbars/1_statusbar/2_statusbar_health/orange/20.png",
+  "../img/7_statusbars/1_statusbar/2_statusbar_health/orange/40.png",
+  "../img/7_statusbars/1_statusbar/2_statusbar_health/orange/60.png",
+  "../img/7_statusbars/1_statusbar/2_statusbar_health/orange/80.png",
+  "../img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png",
+];
+
 let backgroundObjects = [
   new BackgroundObject("../img/5_background/layers/air.png", -719),
   new BackgroundObject("../img/5_background/layers/3_third_layer/2.png", -719),
