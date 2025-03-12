@@ -72,20 +72,6 @@ class MoveableObject extends DrawableObject {
     );
   }
 
-  collectCoin() {
-    this.coins += 20;
-    if (this.coins > 100) {
-      this.coins = 100;
-    }
-  }
-
-  collectBottle() {
-    this.bottles += 20;
-    if (this.bottles > 100) {
-      this.bottles = 100;
-    }
-  }
-
   hit() {
     this.energy -= 20;
     if (this.energy < 0) {
@@ -104,16 +90,4 @@ class MoveableObject extends DrawableObject {
     timepassed = timepassed / 1000;
     return timepassed < 1;
   }
-
-  /* die() {
-    if (this.isDefeated) return;
-    this.isDefeated = true;
-    this.speed = 0;
-
-    if (this.IMAGES_DEAD) {
-      this.playAnimation(this.IMAGES_DEAD);
-    } else if (this.deathImage) {
-      this.loadImage(this.deathImage);
-    }
-  } */
 }

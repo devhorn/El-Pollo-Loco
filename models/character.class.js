@@ -110,4 +110,18 @@ class Character extends MoveableObject {
     clearInterval(this.movementInterval);
     clearInterval(this.animationInterval);
   }
+
+  collectBottle() {
+    this.bottles += 20;
+    if (this.bottles > 100) {
+      this.bottles = 100;
+    }
+  }
+
+  collectCoin() {
+    this.coins += 20;
+    if (this.coins > 100) {
+      this.coins = 100;
+    }
+  }
 }

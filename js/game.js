@@ -75,6 +75,10 @@ function resetGame() {
   document.getElementById("gameWonOverlay").classList.add("dNone");
 }
 
+function backToMenu() {
+  document.getElementById("gameStartOverlay").classList.remove("dNone");
+}
+
 function createLevel(coins) {
   const enemies = createEnemies();
   const clouds = createClouds();
@@ -97,6 +101,7 @@ function createEnemies() {
     new Chicken(),
     new ChickenSmall(),
     new Chicken(),
+    new ChickenSmall(),
     new Endboss(),
   ];
 }
