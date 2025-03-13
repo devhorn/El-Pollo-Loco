@@ -42,7 +42,7 @@ class Endboss extends MoveableObject {
     this.loadImages(this.imagesDead);
     this.speed = 1;
     this.endbossHitSound = new Sound("../audio/hit_endboss.wav");
-    this.endbossDieSound = new Sound("../audio/die_endboss.wav");
+    this.endbossDieSound = new Sound("../audio/die_endboss.wav", 0.2);
     this.animateAlert();
   }
 
