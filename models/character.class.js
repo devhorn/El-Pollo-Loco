@@ -58,6 +58,8 @@ class Character extends MoveableObject {
     this.loadImages(this.imagesHurt);
     this.applyGravity();
     this.walkingSound = new Sound("../audio/walking.wav");
+    this.collectBottleSound = new Sound("../audio/collect_bottle.wav");
+    this.collectCoinSound = new Sound("../audio/collect_coin.wav");
     this.animate();
   }
 
@@ -120,6 +122,7 @@ class Character extends MoveableObject {
 
   collectBottle() {
     this.bottles += 20;
+    this.collectBottleSound.play();
     if (this.bottles > 100) {
       this.bottles = 100;
     }
@@ -127,6 +130,7 @@ class Character extends MoveableObject {
 
   collectCoin() {
     this.coins += 20;
+    this.collectCoinSound.play();
     if (this.coins > 100) {
       this.coins = 100;
     }
