@@ -4,6 +4,11 @@ let keyboard = new Keyboard();
 let mainMelodie = new Sound("../audio/main_melodie.wav", 0.1);
 let youWinSound = new Sound("../audio/you_win.wav");
 let gameOverSound = new Sound("../audio/game_over.wav");
+let soundStatus;
+
+function init() {
+  getSoundStatusLocalStorage();
+}
 
 function startGame() {
   canvas = document.getElementById("canvas");
@@ -128,4 +133,29 @@ function playMelodie() {
 function playGameOverSound() {
   mainMelodie.stop();
   gameOverSound.play();
+}
+
+function muteSound() {
+  let sound = JSON.parse(localStorage.getItem("soundOn"));
+  let soundRef = document.getElementById("muteBtn");
+  if (sound) {
+    soundRef.src = "./img/volume_off.png";
+    saveToLocalStorage(false);
+  } else {
+    soundRef.src = "./img/volume_on.png";
+    saveToLocalStorage(true);
+  }
+}
+
+function getSoundStatusLocalStorage() {
+  let sound = JSON.parse(localStorage.getItem("soundOn"));
+  if (sound != null) {
+    soundStatus = sound;
+  } else {
+    saveToLocalStorage(true);
+  }
+}
+
+function saveToLocalStorage(bool) {
+  localStorage.setItem("soundOn", JSON.stringify(bool));
 }

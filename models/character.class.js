@@ -39,6 +39,19 @@ class Character extends MoveableObject {
     "../img/2_character_pepe/4_hurt/H-43.png",
   ];
 
+  imagesIdle = [
+    "../img/2_character_pepe/1_idle/idle/I-1.png",
+    "../img/2_character_pepe/1_idle/idle/I-2.png",
+    "../img/2_character_pepe/1_idle/idle/I-3.png",
+    "../img/2_character_pepe/1_idle/idle/I-4.png",
+    "../img/2_character_pepe/1_idle/idle/I-5.png",
+    "../img/2_character_pepe/1_idle/idle/I-6.png",
+    "../img/2_character_pepe/1_idle/idle/I-7.png",
+    "../img/2_character_pepe/1_idle/idle/I-8.png",
+    "../img/2_character_pepe/1_idle/idle/I-9.png",
+    "../img/2_character_pepe/1_idle/idle/I-10.png",
+  ];
+
   world;
   speed = 10;
   offset = {
@@ -56,6 +69,7 @@ class Character extends MoveableObject {
     this.loadImages(this.imagesJumping);
     this.loadImages(this.imagesDead);
     this.loadImages(this.imagesHurt);
+    this.loadImages(this.imagesIdle);
     this.applyGravity();
     this.walkingSound = new Sound("../audio/walking.wav");
     this.collectBottleSound = new Sound("../audio/collect_bottle.wav");
@@ -108,9 +122,11 @@ class Character extends MoveableObject {
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
           this.playAnimation(this.imagesWalking);
+        } else {
+          this.playAnimation(this.imagesIdle);
         }
       }
-    }, 105);
+    }, 100);
   }
 
   showGameOverScreen() {
