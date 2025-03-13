@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let mainMelodie = new Sound("../audio/main_melodie.wav", 0.1);
 let youWinSound = new Sound("../audio/you_win.wav");
+let gameOverSound = new Sound("../audio/game_over.wav");
 
 function startGame() {
   canvas = document.getElementById("canvas");
@@ -74,6 +75,7 @@ function resetGame() {
   addBottles();
   level1 = createLevel(coins, bottles);
   world = new World(canvas, keyboard);
+  mainMelodie.play(true);
   document.getElementById("gameOverOverlay").classList.add("dNone");
   document.getElementById("gameWonOverlay").classList.add("dNone");
 }
@@ -121,4 +123,9 @@ function createClouds() {
 
 function playMelodie() {
   mainMelodie.play(true);
+}
+
+function playGameOverSound() {
+  mainMelodie.stop();
+  gameOverSound.play();
 }

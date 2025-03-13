@@ -9,7 +9,6 @@ class World {
   statusbarHealth = new Statusbar(statusbarImagesHealth, 20, 0, 100);
   statusbarCoin = new Statusbar(statusbarImagesCoins, 20, 50, 0);
   statusbarBottle = new Statusbar(statusbarImagesBottles, 20, 100, 0);
-
   throwableObjects = [];
 
   constructor(canvas, keyboard) {

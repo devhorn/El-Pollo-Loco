@@ -100,6 +100,7 @@ class Character extends MoveableObject {
         clearInterval(this.movementInterval);
         clearInterval(this.animationInterval);
         this.showGameOverScreen();
+        playGameOverSound();
       } else if (this.isHurt()) {
         this.playAnimation(this.imagesHurt);
       } else if (this.isAboveGround()) {

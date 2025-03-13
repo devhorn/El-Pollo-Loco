@@ -41,6 +41,8 @@ class Endboss extends MoveableObject {
     this.loadImages(this.imagesHurt);
     this.loadImages(this.imagesDead);
     this.speed = 1;
+    this.endbossHitSound = new Sound("../audio/hit_endboss.wav");
+    this.endbossDieSound = new Sound("../audio/die_endboss.wav");
     this.animateAlert();
   }
 
@@ -76,6 +78,7 @@ class Endboss extends MoveableObject {
   hitByBottle() {
     if (this.isDefeated) return;
     if (this.hits < 3) {
+      this.endbossHitSound.play();
       this.hits++;
       clearInterval(this.movementInterval);
       clearInterval(this.animationInterval);
@@ -89,6 +92,7 @@ class Endboss extends MoveableObject {
         }
       }, 1000);
     } else {
+      this.endbossDieSound.play();
       this.dieBoss();
     }
   }
