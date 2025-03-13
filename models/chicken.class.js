@@ -39,7 +39,6 @@ class Chicken extends MoveableObject {
     this.isDead = true;
     clearInterval(this.walkInterval);
     clearInterval(this.moveInterval);
-
     this.loadImage(this.imageDeath);
     setTimeout(() => {
       this.x = -9999;
