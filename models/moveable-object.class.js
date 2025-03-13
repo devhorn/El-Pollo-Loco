@@ -50,10 +50,6 @@ class MoveableObject extends DrawableObject {
     }
   }
 
-  jump() {
-    this.speedY = 33;
-  }
-
   isColliding(mo) {
     return (
       this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
@@ -70,15 +66,6 @@ class MoveableObject extends DrawableObject {
       this.y + this.height > obj.y &&
       this.y + this.height < obj.y + obj.height / 2
     );
-  }
-
-  hit() {
-    this.energy -= 20;
-    if (this.energy < 0) {
-      this.energy = 0;
-    } else {
-      this.lastHit = new Date().getTime(); // Milli sekunden seit dem 01.01.1970
-    }
   }
 
   isDead() {

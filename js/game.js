@@ -1,12 +1,15 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let mainMelodie = new Sound("../audio/main_melodie.wav", 0.1);
+let youWinSound = new Sound("../audio/you_win.wav");
 
 function startGame() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   console.log("My character is ", world.character);
   document.getElementById("gameStartOverlay").classList.add("dNone");
+  mainMelodie.play(true);
 }
 
 window.addEventListener("keydown", e => {
@@ -114,4 +117,8 @@ function createClouds() {
     new Cloud("../img/5_background/layers/4_clouds/2.png", 1500),
     new Cloud("../img/5_background/layers/4_clouds/1.png", 2000),
   ];
+}
+
+function playMelodie() {
+  mainMelodie.play(true);
 }

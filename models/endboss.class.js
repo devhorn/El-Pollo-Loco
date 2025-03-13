@@ -104,5 +104,9 @@ class Endboss extends MoveableObject {
       clearInterval(deadInterval);
       document.getElementById("gameWonOverlay").classList.remove("dNone");
     }, 1000);
+    setTimeout(() => {
+      mainMelodie.stop();
+      youWinSound.play();
+    }, 1000);
   }
 }

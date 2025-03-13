@@ -9,6 +9,7 @@ class Chicken extends MoveableObject {
   ];
   imageDeath = "../img/3_enemies_chicken/chicken_normal/2_dead/dead.png";
   isDead = false;
+  chickenCackle = new Sound("../audio/chicken_cackle.wav");
 
   constructor() {
     super().loadImage(this.imagesWalking[0]);
@@ -34,6 +35,7 @@ class Chicken extends MoveableObject {
 
   die() {
     if (this.isDead) return;
+    this.chickenCackle.play();
     this.isDead = true;
     clearInterval(this.walkInterval);
     clearInterval(this.moveInterval);

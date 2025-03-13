@@ -60,6 +60,9 @@ class Character extends MoveableObject {
     this.walkingSound = new Sound("../audio/walking.wav");
     this.collectBottleSound = new Sound("../audio/collect_bottle.wav");
     this.collectCoinSound = new Sound("../audio/collect_coin.wav");
+    this.hitSound = new Sound("../audio/hit_character.wav");
+    this.jumpSound = new Sound("../audio/jump.wav");
+
     this.animate();
   }
 
@@ -77,6 +80,7 @@ class Character extends MoveableObject {
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
+        this.jumpSound.play();
       }
 
       if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -133,6 +137,19 @@ class Character extends MoveableObject {
     this.collectCoinSound.play();
     if (this.coins > 100) {
       this.coins = 100;
+    }
+  }
+
+  jump() {
+    this.speedY = 33;
+  }
+
+  hit() {
+    this.energy -= 20;
+    if (this.energy < 0) {
+      this.energy = 0;
+    } else {
+      this.lastHit = new Date().getTime(); // Milli sekunden seit dem 01.01.1970
     }
   }
 }

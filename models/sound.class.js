@@ -1,8 +1,8 @@
 class Sound {
-  constructor(src) {
+  constructor(src, volume = 0.5) {
     this.audio = new Audio(src);
     this.audio.preload = "auto";
-    this.audio.volume = 0.5;
+    this.audio.volume = volume;
   }
 
   play(loop = false) {
