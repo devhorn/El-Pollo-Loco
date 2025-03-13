@@ -159,3 +159,11 @@ function getSoundStatusLocalStorage() {
 function saveToLocalStorage(bool) {
   localStorage.setItem("soundOn", JSON.stringify(bool));
 }
+
+function closeOverlay(id) {
+  document.getElementById(id).classList.add("dNone");
+}
+
+function openOverlay(id) {
+  document.getElementById(id).classList.remove("dNone");
+}

@@ -121,3 +121,55 @@ canvas {
   margin-bottom: 16px;
   gap: 32px;
 }
+
+.controls {
+  height: 480px;
+  width: 720px;
+  background-color: #f9ca58;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  flex-direction: column;
+  padding-top: 8px;
+  padding-bottom: 32px;
+}
+
+.allControls {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.singleControl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.singleControl p {
+  color: #3f3f3f;
+}
+
+.key {
+  height: 80px;
+  width: 80px;
+  border: 1px solid #3f3f3f;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3f3f3f;
+}
+
+.description {
+  font-size: 18px;
+  color: #3f3f3f;
+}
+
+.closeIcon {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}

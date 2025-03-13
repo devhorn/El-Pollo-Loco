@@ -53,7 +53,34 @@
 
         <div class="btnsStartGame">
           <div onclick="startGame()" class="btn">Start game</div>
-          <div class="btn">Settings</div>
+          <div onclick="openOverlay('controls')" class="btn">Controls</div>
+        </div>
+      </div>
+      <div id="controls" class="controls dNone">
+        <div class="topSection">
+          <p>Controls</p>
+          <img onclick="closeOverlay('controls')" class="closeIcon" src="./img/close.png" alt="" />
+        </div>
+        <div class="allControls">
+          <div class="singleControl">
+            <div class="key">◀</div>
+            <p>Move Left</p>
+          </div>
+          <div class="singleControl">
+            <div class="key">▶</div>
+            <p>Move Right</p>
+          </div>
+          <div class="singleControl">
+            <div class="key">space</div>
+            <p>Jump</p>
+          </div>
+          <div class="singleControl">
+            <div class="key">D</div>
+            <p>Throw Bottle</p>
+          </div>
+        </div>
+        <div class="description">
+          <p>The endboss must be hit 4 times with a bottle to defeat him!</p>
         </div>
       </div>
     </div>
