@@ -102,7 +102,6 @@ class Endboss extends MoveableObject {
     }, 150);
     setTimeout(() => {
       clearInterval(deadInterval);
-      // GameWonOverlay anzeigen:
       document.getElementById("gameWonOverlay").classList.remove("dNone");
     }, 1000);
   }
