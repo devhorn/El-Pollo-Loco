@@ -57,6 +57,7 @@ class Character extends MoveableObject {
     this.loadImages(this.imagesDead);
     this.loadImages(this.imagesHurt);
     this.applyGravity();
+    this.walkingSound = new Sound("../audio/walking.wav");
     this.animate();
   }
 
@@ -76,16 +77,22 @@ class Character extends MoveableObject {
         this.jump();
       }
 
+      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        if (!this.isAboveGround()) {
+          this.walkingSound.play(true);
+        }
+      } else {
+        this.walkingSound.stop();
+      }
+
       this.world.cameraX = -this.x + 100;
     }, 1000 / 60);
 
     this.animationInterval = setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.imagesDead);
-
         clearInterval(this.movementInterval);
         clearInterval(this.animationInterval);
-
         this.showGameOverScreen();
       } else if (this.isHurt()) {
         this.playAnimation(this.imagesHurt);
