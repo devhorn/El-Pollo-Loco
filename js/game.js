@@ -167,3 +167,7 @@ function closeOverlay(id) {
 function openOverlay(id) {
   document.getElementById(id).classList.remove("dNone");
 }
+
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}

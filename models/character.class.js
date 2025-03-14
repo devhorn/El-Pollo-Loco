@@ -113,6 +113,7 @@ class Character extends MoveableObject {
         this.playAnimation(this.imagesDead);
         clearInterval(this.movementInterval);
         clearInterval(this.animationInterval);
+        clearAllIntervals();
         this.showGameOverScreen();
         playGameOverSound();
       } else if (this.isHurt()) {
