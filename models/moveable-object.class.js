@@ -63,12 +63,12 @@ class MoveableObject extends DrawableObject {
     );
   }
 
-  isCollidingOnTop(obj) {
+  isCollidingOnTop(mo) {
     return (
-      this.x + this.width / 2 > obj.x &&
-      this.x + this.width / 2 < obj.x + obj.width &&
-      this.y + this.height > obj.y &&
-      this.y + this.height < obj.y + obj.height / 2
+      this.x + this.width / 2 > mo.x &&
+      this.x + this.width / 2 < mo.x + mo.width &&
+      this.y + this.height > mo.y &&
+      this.y + this.height < mo.y + mo.height / 2
     );
   }
 

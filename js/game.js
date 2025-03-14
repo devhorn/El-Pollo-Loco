@@ -11,11 +11,19 @@ function init() {
 }
 
 function startGame() {
+  initLevel();
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
-  console.log("My character is ", world.character);
   document.getElementById("gameStartOverlay").classList.add("dNone");
   checkSoundOnOff();
+}
+
+function initLevel() {
+  coins = [];
+  bottles = [];
+  addCoins();
+  addBottles();
+  level1 = createLevel(coins, bottles);
 }
 
 function checkSoundOnOff() {
@@ -93,8 +101,25 @@ function resetGame() {
 }
 
 function backToMenu() {
+  // Stoppe alle aktiven Intervalle, falls ein Spiel läuft
+  if (world) {
+    world.stopAllIntervals();
+  }
+  // Alternativ: Alle Intervalle global löschen (brutaler, aber effektiv)
+  clearAllIntervals();
+
+  // Setze globale Variablen zurück
+  world = null;
+  coins = [];
+  bottles = [];
+
+  // Stoppe Hintergrundmusik
+  mainMelodie.stop();
+
+  // Zeige den Startbildschirm und verstecke alle Overlays
   document.getElementById("gameStartOverlay").classList.remove("dNone");
   document.getElementById("gameOverOverlay").classList.add("dNone");
+  document.getElementById("gameWonOverlay").classList.add("dNone");
 }
 
 function createLevel(coins) {
