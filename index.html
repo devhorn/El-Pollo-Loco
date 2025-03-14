@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" translate="no" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="./fonts/fonts.css" />
@@ -34,7 +34,7 @@
       <div id="gameOverOverlay" class="gameOverOverlay dNone">
         <img class="gameOverImg" src="./img/You won, you lost/You lost.png" alt="" />
         <div class="btnsGameOver">
-          <div class="backToMenu btn">Back to Menu</div>
+          <div onclick="backToMenu()" class="backToMenu btn">Back to Menu</div>
           <div class="restartGameButton btn" onclick="resetGame()">Restart Game</div>
         </div>
       </div>

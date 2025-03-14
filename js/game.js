@@ -4,10 +4,10 @@ let keyboard = new Keyboard();
 let mainMelodie = new Sound("../audio/main_melodie.wav", 0.1);
 let youWinSound = new Sound("../audio/you_win.wav");
 let gameOverSound = new Sound("../audio/game_over.wav");
-let soundStatus;
 
 function init() {
   getSoundStatusLocalStorage();
+  checkSoundStatusforIcon();
 }
 
 function startGame() {
@@ -15,7 +15,14 @@ function startGame() {
   world = new World(canvas, keyboard);
   console.log("My character is ", world.character);
   document.getElementById("gameStartOverlay").classList.add("dNone");
-  mainMelodie.play(true);
+  checkSoundOnOff();
+}
+
+function checkSoundOnOff() {
+  let soundStatus = getSoundStatusLocalStorage();
+  if (soundStatus) {
+    mainMelodie.play(true);
+  }
 }
 
 window.addEventListener("keydown", e => {
@@ -80,13 +87,14 @@ function resetGame() {
   addBottles();
   level1 = createLevel(coins, bottles);
   world = new World(canvas, keyboard);
-  mainMelodie.play(true);
+  checkSoundOnOff();
   document.getElementById("gameOverOverlay").classList.add("dNone");
   document.getElementById("gameWonOverlay").classList.add("dNone");
 }
 
 function backToMenu() {
   document.getElementById("gameStartOverlay").classList.remove("dNone");
+  document.getElementById("gameOverOverlay").classList.add("dNone");
 }
 
 function createLevel(coins) {
@@ -123,6 +131,7 @@ function createClouds() {
     new Cloud("../img/5_background/layers/4_clouds/1.png", 1000),
     new Cloud("../img/5_background/layers/4_clouds/2.png", 1500),
     new Cloud("../img/5_background/layers/4_clouds/1.png", 2000),
+    new Cloud("../img/5_background/layers/4_clouds/1.png", 2500),
   ];
 }
 
@@ -147,10 +156,20 @@ function muteSound() {
   }
 }
 
+function checkSoundStatusforIcon() {
+  let sound = JSON.parse(localStorage.getItem("soundOn"));
+  let soundRef = document.getElementById("muteBtn");
+  if (sound) {
+    soundRef.src = "./img/volume_on.png";
+  } else {
+    soundRef.src = "./img/volume_off.png";
+  }
+}
+
 function getSoundStatusLocalStorage() {
   let sound = JSON.parse(localStorage.getItem("soundOn"));
   if (sound != null) {
-    soundStatus = sound;
+    return sound;
   } else {
     saveToLocalStorage(true);
   }

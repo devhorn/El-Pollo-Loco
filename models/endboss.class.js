@@ -80,8 +80,7 @@ class Endboss extends MoveableObject {
     if (this.hits < 3) {
       this.endbossHitSound.play();
       this.hits++;
-      clearInterval(this.movementInterval);
-      clearInterval(this.animationInterval);
+      this.clearEndbossAnimations();
       let hurtInterval = setInterval(() => {
         this.playAnimation(this.imagesHurt);
       }, 150);
@@ -92,14 +91,13 @@ class Endboss extends MoveableObject {
         }
       }, 1000);
     } else {
-      this.endbossDieSound.play();
       this.dieBoss();
     }
   }
 
   dieBoss() {
-    clearInterval(this.movementInterval);
-    clearInterval(this.animationInterval);
+    this.endbossDieSound.play();
+    this.clearEndbossAnimations();
     this.isDefeated = true;
     let deadInterval = setInterval(() => {
       this.playAnimation(this.imagesDead);
@@ -109,8 +107,18 @@ class Endboss extends MoveableObject {
       document.getElementById("gameWonOverlay").classList.remove("dNone");
     }, 1000);
     setTimeout(() => {
-      mainMelodie.stop();
-      youWinSound.play();
+      this.gameEndTasks();
     }, 1000);
+  }
+
+  clearEndbossAnimations() {
+    clearInterval(this.movementInterval);
+    clearInterval(this.animationInterval);
+  }
+
+  gameEndTasks() {
+    mainMelodie.stop();
+    youWinSound.play();
+    clearAllIntervals();
   }
 }
