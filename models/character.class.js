@@ -76,7 +76,6 @@ class Character extends MoveableObject {
     this.collectCoinSound = new Sound("../audio/collect_coin.wav");
     this.hitSound = new Sound("../audio/hit_character.wav");
     this.jumpSound = new Sound("../audio/jump.wav");
-
     this.animate();
   }
 
