@@ -6,19 +6,21 @@ let youWinSound = new Sound("../audio/you_win.wav");
 let gameOverSound = new Sound("../audio/game_over.wav");
 
 function init() {
-  getSoundStatusLocalStorage();
-  checkSoundStatusforIcon();
+  let storedSoundStatus = JSON.parse(localStorage.getItem("soundOn"));
+  globalMute = !storedSoundStatus;
+  let soundIcon = document.getElementById("muteBtn");
+  soundIcon.src = globalMute ? "./img/volume_off.png" : "./img/volume_on.png";
 }
 
 function startGame() {
-  initLevel();
+  initLevelElements();
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   document.getElementById("gameStartOverlay").classList.add("dNone");
   checkSoundOnOff();
 }
 
-function initLevel() {
+function initLevelElements() {
   coins = [];
   bottles = [];
   addCoins();
@@ -37,23 +39,18 @@ window.addEventListener("keydown", e => {
   if (e.code == "ArrowLeft") {
     keyboard.LEFT = true;
   }
-
   if (e.code == "ArrowUp") {
     keyboard.UP = true;
   }
-
   if (e.code == "ArrowRight") {
     keyboard.RIGHT = true;
   }
-
   if (e.code == "ArrowDown") {
     keyboard.DOWN = true;
   }
-
   if (e.code == "Space") {
     keyboard.SPACE = true;
   }
-
   if (e.code == "KeyD") {
     keyboard.D = true;
   }
@@ -63,23 +60,18 @@ window.addEventListener("keyup", e => {
   if (e.code == "ArrowLeft") {
     keyboard.LEFT = false;
   }
-
   if (e.code == "ArrowUp") {
     keyboard.UP = false;
   }
-
   if (e.code == "ArrowRight") {
     keyboard.RIGHT = false;
   }
-
   if (e.code == "ArrowDown") {
     keyboard.DOWN = false;
   }
-
   if (e.code == "Space") {
     keyboard.SPACE = false;
   }
-
   if (e.code == "KeyD") {
     keyboard.D = false;
   }
@@ -101,22 +93,14 @@ function resetGame() {
 }
 
 function backToMenu() {
-  // Stoppe alle aktiven Intervalle, falls ein Spiel läuft
   if (world) {
     world.stopAllIntervals();
   }
-  // Alternativ: Alle Intervalle global löschen (brutaler, aber effektiv)
   clearAllIntervals();
-
-  // Setze globale Variablen zurück
   world = null;
   coins = [];
   bottles = [];
-
-  // Stoppe Hintergrundmusik
   mainMelodie.stop();
-
-  // Zeige den Startbildschirm und verstecke alle Overlays
   document.getElementById("gameStartOverlay").classList.remove("dNone");
   document.getElementById("gameOverOverlay").classList.add("dNone");
   document.getElementById("gameWonOverlay").classList.add("dNone");
@@ -170,25 +154,18 @@ function playGameOverSound() {
 }
 
 function muteSound() {
-  let sound = JSON.parse(localStorage.getItem("soundOn"));
-  let soundRef = document.getElementById("muteBtn");
-  if (sound) {
-    soundRef.src = "./img/volume_off.png";
+  globalMute = !globalMute;
+  let soundIcon = document.getElementById("muteBtn");
+  if (globalMute) {
+    soundIcon.src = "./img/volume_off.png";
     saveToLocalStorage(false);
   } else {
-    soundRef.src = "./img/volume_on.png";
+    soundIcon.src = "./img/volume_on.png";
     saveToLocalStorage(true);
   }
-}
-
-function checkSoundStatusforIcon() {
-  let sound = JSON.parse(localStorage.getItem("soundOn"));
-  let soundRef = document.getElementById("muteBtn");
-  if (sound) {
-    soundRef.src = "./img/volume_on.png";
-  } else {
-    soundRef.src = "./img/volume_off.png";
-  }
+  allSounds.forEach(sound => {
+    sound.audio.muted = globalMute;
+  });
 }
 
 function getSoundStatusLocalStorage() {
