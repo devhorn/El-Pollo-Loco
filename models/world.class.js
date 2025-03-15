@@ -65,7 +65,7 @@ class World {
         this.character.bottles -= 20;
         this.statusbarBottle.setPercentage(this.character.bottles);
       }
-    }, 150);
+    }, 100);
   }
 
   checkCollisionEnemie() {
@@ -80,6 +80,9 @@ class World {
     }, 1000);
   }
 
+  /**
+   * The function checks if the character collides with an enemy from above
+   */
   checkCollisionsTop() {
     this.level.enemies.forEach(enemy => {
       if (this.character.isCollidingOnTop(enemy) && this.character.speedY < 0) {
@@ -89,6 +92,10 @@ class World {
     });
   }
 
+  /**
+   * This function checks all 50 ms if a thorwableObject (bottle) collide with an enemy
+   * When a chicken is hit, it dies. If the end boss is hit, it takes damage
+   */
   checkCollisionThrowableWithEnemy() {
     setInterval(() => {
       this.throwableObjects.forEach((bottle, bottleIndex) => {
@@ -106,6 +113,11 @@ class World {
     }, 50);
   }
 
+  /**
+   * the function ensures that an enemy first goes through its death process and is then (after 500 ms)
+   * completely removed from the level's enemy list.
+   * @param {object} enemy instance of enemy class
+   */
   defeatEnemy(enemy) {
     enemy.die();
     setTimeout(() => {
@@ -115,17 +127,14 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
     this.ctx.translate(this.cameraX, 0);
     this.addObjectstoMap(this.level.backgroundObjects);
-
     this.addObjectstoMap(this.level.bottles);
     this.addObjectstoMap(this.level.coins);
-
     this.addObjectstoMap(this.level.enemies);
     this.addObjectstoMap(this.throwableObjects);
-    this.addToMap(this.character);
     this.addObjectstoMap(this.level.clouds);
+    this.addToMap(this.character);
 
     this.ctx.translate(-this.cameraX, 0);
     // ------------ space for fixed Objects -------------- //
