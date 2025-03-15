@@ -173,3 +173,28 @@ canvas {
   width: 40px;
   cursor: pointer;
 }
+
+.impressum {
+  height: 480px;
+  width: 720px;
+  background-color: #f9ca58;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  flex-direction: column;
+  padding-top: 8px;
+  padding-bottom: 32px;
+}
+
+.impressumContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 32px 32px;
+}
+
+.headText:hover {
+  text-decoration: none !important;
+}

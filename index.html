@@ -47,7 +47,7 @@
       </div>
       <div id="gameStartOverlay" class="gameStartOverlay">
         <div class="topSection">
-          <p>Impressum</p>
+          <p onclick="openOverlay('impressum')">Impressum</p>
           <img onclick="muteSound()" id="muteBtn" src="./img/volume_on.png" alt="" />
         </div>
         <div class="btnsStartGame">
@@ -57,7 +57,7 @@
       </div>
       <div id="controls" class="controls dNone">
         <div class="topSection">
-          <p>Controls</p>
+          <p class="headText">Controls</p>
           <img onclick="closeOverlay('controls')" class="closeIcon" src="./img/close.png" alt="" />
         </div>
         <div class="allControls">
@@ -80,6 +80,18 @@
         </div>
         <div class="description">
           <p>The endboss must be hit 4 times with a bottle to defeat him!</p>
+        </div>
+      </div>
+      <div id="impressum" class="impressum dNone">
+        <div class="topSection">
+          <p class="headText">Impressum</p>
+          <img onclick="closeOverlay('impressum')" class="closeIcon" src="./img/close.png" alt="" />
+        </div>
+        <div class="impressumContent">
+          <p>Angaben gemäß § 5TMG:</p>
+          <p>Manuel Horn</p>
+          <p>Grüner Weg 11</p>
+          <p>36251 Ludwigsau</p>
         </div>
       </div>
     </div>
