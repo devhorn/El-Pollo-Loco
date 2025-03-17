@@ -6,6 +6,7 @@ let youWinSound = new Sound("../audio/you_win.wav");
 let gameOverSound = new Sound("../audio/game_over.wav");
 
 function init() {
+  /* mainMelodie.stop(); */
   let storedSoundStatus = JSON.parse(localStorage.getItem("soundOn"));
   globalMute = !storedSoundStatus;
   let soundIcon = document.getElementById("muteBtn");
@@ -100,10 +101,10 @@ function backToMenu() {
   world = null;
   coins = [];
   bottles = [];
-  mainMelodie.stop();
   document.getElementById("gameStartOverlay").classList.remove("dNone");
   document.getElementById("gameOverOverlay").classList.add("dNone");
   document.getElementById("gameWonOverlay").classList.add("dNone");
+  mainMelodie.play(true);
 }
 
 function createLevel(coins) {
@@ -162,6 +163,7 @@ function muteSound() {
   } else {
     soundIcon.src = "./img/volume_on.png";
     saveToLocalStorage(true);
+    mainMelodie.play(true); // Mainmelodie neu starten beim Entmuten
   }
   allSounds.forEach(sound => {
     sound.audio.muted = globalMute;
@@ -191,4 +193,8 @@ function openOverlay(id) {
 
 function clearAllIntervals() {
   for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}
+
+function setSoundStatusMute() {
+  saveToLocalStorage(false);
 }

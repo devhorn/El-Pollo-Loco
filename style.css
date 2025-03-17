@@ -96,6 +96,14 @@ canvas {
   height: 48px;
   width: 48px;
   cursor: pointer;
+  position: absolute;
+  top: 225px;
+  z-index: 1;
+}
+
+.muteBox {
+  display: flex;
+  width: 500px;
 }
 
 .gameWonOverlay {
