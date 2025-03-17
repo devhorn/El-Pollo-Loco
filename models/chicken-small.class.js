@@ -1,5 +1,5 @@
 class ChickenSmall extends Chicken {
-  y = 370;
+  y = 365;
   height = 50;
   width = 50;
   imagesWalking = [

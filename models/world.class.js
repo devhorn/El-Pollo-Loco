@@ -65,7 +65,7 @@ class World {
         this.character.bottles -= 20;
         this.statusbarBottle.setPercentage(this.character.bottles);
       }
-    }, 100);
+    }, 120);
   }
 
   checkCollisionEnemie() {

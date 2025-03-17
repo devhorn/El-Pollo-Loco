@@ -6,7 +6,7 @@ let youWinSound = new Sound("../audio/you_win.wav");
 let gameOverSound = new Sound("../audio/game_over.wav");
 
 function init() {
-  /* mainMelodie.stop(); */
+  mainMelodie.stop();
   let storedSoundStatus = JSON.parse(localStorage.getItem("soundOn"));
   globalMute = !storedSoundStatus;
   let soundIcon = document.getElementById("muteBtn");

@@ -10,10 +10,6 @@ class Endboss extends MoveableObject {
     "../img/4_enemie_boss_chicken/1_walk/G2.png",
     "../img/4_enemie_boss_chicken/1_walk/G3.png",
     "../img/4_enemie_boss_chicken/1_walk/G4.png",
-    "../img/4_enemie_boss_chicken/3_attack/G13.png",
-    "../img/4_enemie_boss_chicken/3_attack/G14.png",
-    "../img/4_enemie_boss_chicken/3_attack/G15.png",
-    "../img/4_enemie_boss_chicken/3_attack/G16.png",
     "../img/4_enemie_boss_chicken/3_attack/G17.png",
     "../img/4_enemie_boss_chicken/3_attack/G18.png",
     "../img/4_enemie_boss_chicken/3_attack/G19.png",
@@ -33,7 +29,7 @@ class Endboss extends MoveableObject {
   ];
 
   x = 2600;
-  y = 50;
+  y = 45;
   width = 300;
   height = 400;
   triggerActivated = false;
@@ -73,6 +69,7 @@ class Endboss extends MoveableObject {
     this.animationInterval = setInterval(() => {
       this.playAnimation(this.imagesWalking);
     }, 150);
+
     this.movementInterval = setInterval(() => {
       if (this.x > this.minX) {
         this.moveLeft();
