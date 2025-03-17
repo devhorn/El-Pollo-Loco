@@ -5,6 +5,9 @@ let mainMelodie = new Sound("../audio/main_melodie.wav", 0.1);
 let youWinSound = new Sound("../audio/you_win.wav");
 let gameOverSound = new Sound("../audio/game_over.wav");
 
+/**
+ * This function will be loaded if page is loaded an handles the sound
+ */
 function init() {
   mainMelodie.stop();
   let storedSoundStatus = JSON.parse(localStorage.getItem("soundOn"));
@@ -13,6 +16,9 @@ function init() {
   soundIcon.src = globalMute ? "./img/volume_off.png" : "./img/volume_on.png";
 }
 
+/**
+ * This function is for stating the game. It intiliaze the level and the world
+ */
 function startGame() {
   initLevelElements();
   canvas = document.getElementById("canvas");
@@ -21,6 +27,9 @@ function startGame() {
   checkSoundOnOff();
 }
 
+/**
+ * This function is for intializing the level in stargame function
+ */
 function initLevelElements() {
   coins = [];
   bottles = [];
@@ -29,6 +38,9 @@ function initLevelElements() {
   level1 = createLevel(coins, bottles);
 }
 
+/**
+ * Checks the sound status in localstorage for the main game melodie
+ */
 function checkSoundOnOff() {
   let soundStatus = getSoundStatusLocalStorage();
   if (soundStatus) {
@@ -36,6 +48,9 @@ function checkSoundOnOff() {
   }
 }
 
+/**
+ * This function is for handling of the keyboard keydown events from the player
+ */
 window.addEventListener("keydown", e => {
   if (e.code == "ArrowLeft") {
     keyboard.LEFT = true;
@@ -57,6 +72,9 @@ window.addEventListener("keydown", e => {
   }
 });
 
+/**
+ * This function is for handling of the keyboard keyup events from the player
+ */
 window.addEventListener("keyup", e => {
   if (e.code == "ArrowLeft") {
     keyboard.LEFT = false;
@@ -78,6 +96,9 @@ window.addEventListener("keyup", e => {
   }
 });
 
+/**
+ * This function is for reset the game in the game over/game won screen
+ */
 function resetGame() {
   if (world) {
     world.stopAllIntervals();
@@ -93,6 +114,9 @@ function resetGame() {
   document.getElementById("gameWonOverlay").classList.add("dNone");
 }
 
+/**
+ * This function is for routing back to menu in the game over/game won screen
+ */
 function backToMenu() {
   if (world) {
     world.stopAllIntervals();
@@ -107,7 +131,12 @@ function backToMenu() {
   mainMelodie.play(true);
 }
 
-function createLevel(coins) {
+/**
+ * This function is for create the level objects
+ * @param {object} coins - array of coins
+ * @param {object} bottles - array of bottles
+ */
+function createLevel(coins, bottles) {
   const enemies = createEnemies();
   const clouds = createClouds();
   const backgroundObjects = createBackgroundObjects();
