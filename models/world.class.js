@@ -9,6 +9,7 @@ class World {
   statusbarHealth = new Statusbar(statusbarImagesHealth, 20, 0, 100);
   statusbarCoin = new Statusbar(statusbarImagesCoins, 20, 50, 0);
   statusbarBottle = new Statusbar(statusbarImagesBottles, 20, 100, 0);
+  bottleSplashSound = new Sound("../audio/glass_splash.flac");
   throwableObjects = [];
 
   constructor(canvas, keyboard) {
@@ -20,6 +21,7 @@ class World {
     this.checkCollisionEnemie();
     this.checkThrowObject();
     this.checkCollisionThrowableWithEnemy();
+    this.checkCollisionBottleWithGround();
     this.activateEndboss();
   }
 
@@ -101,14 +103,41 @@ class World {
       this.throwableObjects.forEach((bottle, bottleIndex) => {
         this.level.enemies.forEach(enemy => {
           if (bottle.isColliding(enemy)) {
-            if (enemy instanceof Endboss) {
-              enemy.hitByBottle();
-            } else {
-              enemy.die();
+            if (!bottle.splashPlayed) {
+              this.bottleSplashSound.play();
+              bottle.splashPlayed = true;
+              bottle.splashAnimation();
+              if (enemy instanceof Endboss) {
+                enemy.hitByBottle();
+              } else {
+                enemy.die();
+              }
+              setTimeout(() => {
+                this.throwableObjects.splice(bottleIndex, 1);
+              }, 600);
             }
-            this.throwableObjects.splice(bottleIndex, 1);
           }
         });
+      });
+    }, 50);
+  }
+
+  checkCollisionBottleWithGround() {
+    const groundY = 340; // Definiere hier die Y-Position des Bodens (anpassen, falls nötig)
+    setInterval(() => {
+      this.throwableObjects.forEach((bottle, bottleIndex) => {
+        // Prüfen, ob das untere Ende der Flasche den Boden erreicht hat
+        if (bottle.y + bottle.height >= groundY) {
+          if (!bottle.splashPlayed) {
+            this.bottleSplashSound.play();
+            bottle.splashPlayed = true;
+            bottle.splashAnimation(); // splashAnimation() sollte in der entsprechenden Klasse implementiert sein
+            // Nach kurzer Zeit die Flasche aus dem Array entfernen
+            setTimeout(() => {
+              this.throwableObjects.splice(bottleIndex, 1);
+            }, 600);
+          }
+        }
       });
     }, 50);
   }

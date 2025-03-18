@@ -36,13 +36,6 @@ class MoveableObject extends DrawableObject {
     this.x -= this.speed;
   }
 
-  playAnimation(images) {
-    let indexImg = this.currentImage % images.length;
-    let path = images[indexImg];
-    this.img = this.imageCache[path];
-    this.currentImage++;
-  }
-
   playJumpAnimation(images) {
     if (this.currentImageJump < images.length) {
       let indexImg = this.currentImageJump;

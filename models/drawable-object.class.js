@@ -14,6 +14,13 @@ class DrawableObject {
     bottom: 0,
   };
 
+  playAnimation(images) {
+    let indexImg = this.currentImage % images.length;
+    let path = images[indexImg];
+    this.img = this.imageCache[path];
+    this.currentImage++;
+  }
+
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
