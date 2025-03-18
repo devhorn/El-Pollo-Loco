@@ -18,37 +18,8 @@
   background-size: cover;
 }
 
-.content {
-  max-width: 720px;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-}
-
-.gameOverOverlay,
-.gameStartOverlay,
-.gameWonOverlay,
-.controls,
-.impressum {
-  width: 100%;
-  max-width: 720px;
-  /* Um das Seitenverhältnis von 720x480 zu wahren (3:2):
-     (3 / 2) = 1.5; also: height = width / 1.5 */
-  height: auto;
-  aspect-ratio: 720 / 480;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
 canvas {
-  width: 100%;
-  height: auto;
-  display: block;
+  background-color: black;
 }
 
 .dNone {
@@ -234,18 +205,4 @@ canvas {
 
 .headText:hover {
   text-decoration: none !important;
-}
-
-@media only screen and (max-width: 720px) {
-  .content,
-  canvas {
-    width: 100%;
-  }
-}
-
-@media only screen and (max-height: 480px) {
-  .content,
-  canvas {
-    height: 100vh;
-  }
 }
