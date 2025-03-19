@@ -30,7 +30,6 @@
   </head>
   <body onload="init()">
     <div class="content">
-      <img onclick="muteSound()" id="muteBtn" src="./img/volume_on.png" alt="" />
       <canvas id="canvas" width="720" height="480"></canvas>
       <div id="gameOverOverlay" class="gameOverOverlay dNone">
         <img class="gameOverImg" src="./img/You won, you lost/You lost.png" alt="" />
@@ -93,6 +92,12 @@
           <p>Grüner Weg 11</p>
           <p>36251 Ludwigsau</p>
         </div>
+      </div>
+      <div id="mobileKeysAndMute" class="mobileKeysAndMute">
+        <div class="topSectionMute">
+          <img onclick="muteSound()" id="muteBtn" src="./img/volume_on.png" alt="" />
+        </div>
+        <div id="mobileKeys" class="mobileKeys"></div>
       </div>
     </div>
   </body>

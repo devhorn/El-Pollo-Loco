@@ -11,6 +11,7 @@ class World {
   statusbarBottle = new Statusbar(statusbarImagesBottles, 20, 100, 0);
   bottleSplashSound = new Sound("../audio/glass_splash.flac");
   throwableObjects = [];
+  groundY = 350;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -123,16 +124,13 @@ class World {
   }
 
   checkCollisionBottleWithGround() {
-    const groundY = 340; // Definiere hier die Y-Position des Bodens (anpassen, falls nötig)
     setInterval(() => {
       this.throwableObjects.forEach((bottle, bottleIndex) => {
-        // Prüfen, ob das untere Ende der Flasche den Boden erreicht hat
-        if (bottle.y + bottle.height >= groundY) {
+        if (bottle.y + bottle.height >= this.groundY) {
           if (!bottle.splashPlayed) {
             this.bottleSplashSound.play();
             bottle.splashPlayed = true;
-            bottle.splashAnimation(); // splashAnimation() sollte in der entsprechenden Klasse implementiert sein
-            // Nach kurzer Zeit die Flasche aus dem Array entfernen
+            bottle.splashAnimation();
             setTimeout(() => {
               this.throwableObjects.splice(bottleIndex, 1);
             }, 600);
@@ -160,22 +158,19 @@ class World {
     this.addObjectstoMap(this.level.backgroundObjects);
     this.addObjectstoMap(this.level.bottles);
     this.addObjectstoMap(this.level.coins);
+    this.addObjectstoMap(this.level.clouds);
     this.addObjectstoMap(this.level.enemies);
     this.addObjectstoMap(this.throwableObjects);
-    this.addObjectstoMap(this.level.clouds);
     this.addToMap(this.character);
-
     this.ctx.translate(-this.cameraX, 0);
     // ------------ space for fixed Objects -------------- //
     this.addToMap(this.statusbarHealth);
     this.addToMap(this.statusbarCoin);
     this.addToMap(this.statusbarBottle);
     this.ctx.translate(this.cameraX, 0);
-
     this.ctx.translate(-this.cameraX, 0);
     this.checkCollisionsCollectableObjects();
     this.checkCollisionsTop();
-
     // Draw wird immer wieder aufgerufen
     let self = this;
     requestAnimationFrame(function () {

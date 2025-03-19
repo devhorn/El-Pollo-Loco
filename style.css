@@ -62,16 +62,17 @@ canvas {
 }
 
 .gameStartOverlay {
-  height: 480px;
-  width: 720px;
+  width: clamp(320px, 100%, 720px);
+  aspect-ratio: 720 / 480; /* Hält das Seitenverhältnis konstant */
   background-image: url("./img/9_intro_outro_screens/start/startscreen_1.png");
-  background-size: 720px 480px;
+  background-size: contain; /* Oder "contain", wenn du den gesamten Inhalt siehst */
   background-repeat: no-repeat;
   position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+  background-color: #994409;
 }
 
 .topSection {
@@ -96,9 +97,6 @@ canvas {
   height: 48px;
   width: 48px;
   cursor: pointer;
-  position: absolute;
-  top: 225px;
-  z-index: 1;
 }
 
 .muteBox {
@@ -106,9 +104,20 @@ canvas {
   width: 500px;
 }
 
-.gameWonOverlay {
+/* .gameWonOverlay {
   height: 480px;
   width: 720px;
+  background-color: #f9ca58;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  flex-direction: column;
+} */
+
+.gameWonOverlay {
+  width: clamp(320px, 100%, 720px); /* passt sich in der Breite an */
+  aspect-ratio: 720 / 480; /* behält das Seitenverhältnis bei, falls nötig */
   background-color: #f9ca58;
   display: flex;
   justify-content: space-evenly;
@@ -118,8 +127,9 @@ canvas {
 }
 
 .gameWonImg {
-  height: 340px;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
 }
 
 .btnsStartGame {
@@ -205,4 +215,31 @@ canvas {
 
 .headText:hover {
   text-decoration: none !important;
+}
+
+.mobileKeysAndMute {
+  height: 50px;
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  top: 220px;
+}
+@media only screen and (max-width: 720px) {
+  canvas {
+    width: 100%;
+  }
+  .content {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-height: 480px) {
+  canvas {
+    height: 100vh;
+  }
+  .content {
+    height: 100vh;
+  }
 }
