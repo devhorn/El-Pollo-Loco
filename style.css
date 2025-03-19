@@ -27,13 +27,18 @@ canvas {
 }
 
 .gameOverOverlay {
-  height: 480px;
-  width: 720px;
+  width: clamp(320px, 100%, 720px); /* passt sich in der Breite an */
+  aspect-ratio: 710 / 480; /* behält das Seitenverhältnis bei, falls nötig */
   background-color: #f9ca58;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  background-image: url("./img/You won, you lost/You lost.png");
+  background-size: contain; /* Oder "contain", wenn du den gesamten Inhalt siehst */
+  background-repeat: no-repeat;
+  background-position: center center;
   position: absolute;
+  top: 0px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   flex-direction: column;
 }
 
@@ -45,6 +50,7 @@ canvas {
 .btnsGameOver {
   display: flex;
   gap: 64px;
+  margin-bottom: 32px;
 }
 
 .btn {
@@ -63,11 +69,12 @@ canvas {
 
 .gameStartOverlay {
   width: clamp(320px, 100%, 720px);
-  aspect-ratio: 720 / 480; /* Hält das Seitenverhältnis konstant */
+  aspect-ratio: 710 / 480; /* Hält das Seitenverhältnis konstant */
   background-image: url("./img/9_intro_outro_screens/start/startscreen_1.png");
   background-size: contain; /* Oder "contain", wenn du den gesamten Inhalt siehst */
   background-repeat: no-repeat;
   position: absolute;
+  top: 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -97,6 +104,11 @@ canvas {
   height: 48px;
   width: 48px;
   cursor: pointer;
+  position: absolute; /* relativ zum Eltern-Container positionieren */
+  top: 10px;
+  left: 50%; /* horizontale Mitte */
+  transform: translateX(-50%);
+  z-index: 2;
 }
 
 .muteBox {
@@ -104,25 +116,19 @@ canvas {
   width: 500px;
 }
 
-/* .gameWonOverlay {
-  height: 480px;
-  width: 720px;
-  background-color: #f9ca58;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  position: absolute;
-  flex-direction: column;
-} */
-
 .gameWonOverlay {
-  width: clamp(320px, 100%, 720px); /* passt sich in der Breite an */
-  aspect-ratio: 720 / 480; /* behält das Seitenverhältnis bei, falls nötig */
+  width: clamp(320px, 100%, 720px);
+  aspect-ratio: 710 / 480;
   background-color: #f9ca58;
   display: flex;
-  justify-content: space-evenly;
+  background-image: url("./img/You won, you lost/You Win A.png");
+  background-size: contain; /* Oder "contain", wenn du den gesamten Inhalt siehst */
+  background-position: center center;
+  background-repeat: no-repeat;
+  justify-content: flex-end;
   align-items: center;
   position: absolute;
+  top: 0;
   flex-direction: column;
 }
 
@@ -141,12 +147,13 @@ canvas {
 }
 
 .controls {
-  height: 480px;
-  width: 720px;
+  aspect-ratio: 710 / 480;
+  width: clamp(320px, 100%, 720px);
   background-color: #f9ca58;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  top: 0px;
   position: absolute;
   flex-direction: column;
   padding-top: 8px;
@@ -193,13 +200,14 @@ canvas {
 }
 
 .impressum {
-  height: 480px;
-  width: 720px;
+  aspect-ratio: 710 / 480;
+  width: clamp(320px, 100%, 720px);
   background-color: #f9ca58;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   position: absolute;
+  top: 0px;
   flex-direction: column;
   padding-top: 8px;
   padding-bottom: 32px;
@@ -213,19 +221,14 @@ canvas {
   padding: 32px 32px;
 }
 
+.impressumContent p {
+  color: #3f3f3f;
+}
+
 .headText:hover {
   text-decoration: none !important;
 }
 
-.mobileKeysAndMute {
-  height: 50px;
-  width: 100%;
-  max-width: 720px;
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  top: 220px;
-}
 @media only screen and (max-width: 720px) {
   canvas {
     width: 100%;
@@ -241,5 +244,63 @@ canvas {
   }
   .content {
     height: 100vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .btnsGameOver {
+    font-size: 18px;
+    gap: 15px;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 450px) {
+  .btn {
+    cursor: pointer;
+    padding: 4px 16px;
+    border-radius: 32px;
+    background-color: #257fd7;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    font-size: 18px;
+  }
+
+  #muteBtn {
+    height: 32px;
+    width: 32px;
+    top: 10px;
+  }
+
+  .topSection p {
+    font-size: 20px;
+    color: #3f3f3f;
+    cursor: pointer;
+  }
+
+  .key {
+    height: 60px;
+    width: 60px;
+  }
+
+  .key p {
+    font-size: 14px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .singleControl {
+    gap: 4px;
+  }
+
+  .singleControl p {
+    font-size: 14px;
+  }
+
+  .closeIcon {
+    height: 30px;
+    width: 30px;
   }
 }
