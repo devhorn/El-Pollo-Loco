@@ -40,6 +40,7 @@ canvas {
   justify-content: flex-end;
   align-items: center;
   flex-direction: column;
+  z-index: 4;
 }
 
 .gameOverImg {
@@ -80,6 +81,7 @@ canvas {
   justify-content: space-between;
   align-items: flex-end;
   background-color: #994409;
+  z-index: 4;
 }
 
 .topSection {
@@ -130,6 +132,7 @@ canvas {
   position: absolute;
   top: 0;
   flex-direction: column;
+  z-index: 4;
 }
 
 .gameWonImg {
@@ -158,6 +161,7 @@ canvas {
   flex-direction: column;
   padding-top: 8px;
   padding-bottom: 32px;
+  z-index: 5;
 }
 
 .allControls {
@@ -211,6 +215,7 @@ canvas {
   flex-direction: column;
   padding-top: 8px;
   padding-bottom: 32px;
+  z-index: 6;
 }
 
 .impressumContent {
@@ -227,6 +232,41 @@ canvas {
 
 .headText:hover {
   text-decoration: none !important;
+}
+
+#mobileKeys {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between; /* oder "center", je nachdem, wie du die Buttons anordnen möchtest */
+  padding: 8px 32px;
+  z-index: 3; /* stellt sicher, dass das Overlay über dem Canvas liegt */
+}
+
+.mobileActionKeys {
+  display: flex;
+  gap: 32px;
+}
+
+.mobileKey {
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  background-color: #257fd7;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid white;
+  font-size: 20px;
+}
+
+.mobileKey img {
+  height: 40px;
+  width: 40px;
 }
 
 @media only screen and (max-width: 720px) {

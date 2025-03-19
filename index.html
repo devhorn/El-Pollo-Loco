@@ -24,6 +24,7 @@
     <script src="./js/image-arrays.js"></script>
     <script src="./models/world.class.js"></script>
     <script src="./levels/level1.js"></script>
+
     <script src="./js/game.js"></script>
     <title>El Pollo Loco</title>
     <link rel="icon" type="image/x-icon" href="./img/favicon-96x96.png" />
@@ -94,11 +95,18 @@
             <p>Sources:<br />Sound: https://freesound.org/ <br />Pictures: https://www.freepik.com/</p>
           </div>
         </div>
-      </div>
-
-      <div id="mobileKeysAndMute" class="mobileKeysAndMute">
-        <div id="mobileKeys" class="mobileKeys"></div>
+        <div id="mobileKeys" class="mobileKeys">
+          <div class="mobileActionKeys">
+            <div id="btnLeft" class="mobileKey"><img src="./img/left_arrow.png" /></div>
+            <div id="btnRight" class="mobileKey"><img src="./img/right_arrow.png" /></div>
+          </div>
+          <div class="mobileActionKeys">
+            <div id="btnJump" class="mobileKey">J</div>
+            <div id="btnThrow" class="mobileKey">T</div>
+          </div>
+        </div>
       </div>
     </div>
+    <script src="./js/keys.js"></script>
   </body>
 </html>
