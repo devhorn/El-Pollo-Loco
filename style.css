@@ -110,7 +110,7 @@ canvas {
   top: 10px;
   left: 50%; /* horizontale Mitte */
   transform: translateX(-50%);
-  z-index: 2;
+  z-index: 10;
 }
 
 .muteBox {
