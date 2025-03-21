@@ -26,10 +26,16 @@ class World {
     this.activateEndboss();
   }
 
+  /**
+   * This function ensures that the properties and methods from the world class are available in the character
+   */
   setWorld() {
     this.character.world = this;
   }
 
+  /**
+   * This function checks a collosion with a coin or a bottle
+   */
   checkCollisionsCollectableObjects() {
     setInterval(() => {
       this.checkCollisionCoin();
@@ -37,6 +43,9 @@ class World {
     }, 1000);
   }
 
+  /**
+   * This function checks the collision with a coin and update the statusbar if a the character is colliding with a coin
+   */
   checkCollisionCoin() {
     this.level.coins = this.level.coins.filter(coin => {
       if (this.character.isColliding(coin)) {
@@ -48,6 +57,9 @@ class World {
     });
   }
 
+  /**
+   * This function checks the collision with a bottle and update the statusbar if a the character is colliding with a bottle
+   */
   checkCollisionBottle() {
     this.level.bottles = this.level.bottles.filter(bottle => {
       if (this.character.isColliding(bottle) && this.character.bottles < 100) {
@@ -59,6 +71,10 @@ class World {
     });
   }
 
+  /**
+   * This function checks if a bottle is thrown by pressing the D key. Throwing is only possible if bottles are collectet before.
+   * After throwing the statusbar will be updated
+   */
   checkThrowObject() {
     setInterval(() => {
       if (this.keyboard.D && this.character.bottles > 0) {
@@ -71,6 +87,10 @@ class World {
     }, 120);
   }
 
+  /**
+   * This function checks if a the character is colliding with an enemy.
+   * Depending on which enemy the character collides with, different damage is applied to the character
+   */
   checkCollisionEnemie() {
     setInterval(() => {
       this.level.enemies.forEach(enemy => {
@@ -127,6 +147,9 @@ class World {
     }, 50);
   }
 
+  /**
+   * This function checks all 50 ms if a thorwableObject (bottle) collide the ground
+   */
   checkCollisionBottleWithGround() {
     setInterval(() => {
       this.throwableObjects.forEach((bottle, bottleIndex) => {
@@ -156,6 +179,9 @@ class World {
     }, 500);
   }
 
+  /**
+   * This function adds the images to the canvas
+   */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.cameraX, 0);
@@ -182,25 +208,34 @@ class World {
     });
   }
 
+  /**
+   * This function adds multiple Images from a array the canvas
+   */
   addObjectstoMap(objects) {
     objects.forEach(object => {
       this.addToMap(object);
     });
   }
 
+  /**
+   * This function adds image the canvas
+   * @param {object} mo - instance of class
+   */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
-
     mo.draw(this.ctx);
     /* mo.drawFrame(this.ctx); */
-
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
   }
 
+  /**
+   * This function mirrors image
+   * @param {object} mo - instance of class
+   */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -208,17 +243,27 @@ class World {
     mo.x = mo.x * -1;
   }
 
+  /**
+   * This function mirrors a image back
+   * @param {object} mo - instance of class
+   */
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();
   }
 
+  /**
+   * This function stop alle animations of the character
+   */
   stopAllIntervals() {
     if (this.character) {
       this.character.stopAnimation();
     }
   }
 
+  /**
+   * This function lets the end boss start walking when the character has reached a certain x-value
+   */
   activateEndboss() {
     setInterval(() => {
       this.level.enemies.forEach(enemy => {
