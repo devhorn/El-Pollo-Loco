@@ -116,12 +116,12 @@ class Character extends MoveableObject {
     this.speedY = 33;
   }
 
-  hit() {
-    this.energy -= 20;
+  hit(damage = 20) {
+    this.energy -= damage;
     if (this.energy < 0) {
       this.energy = 0;
     } else {
-      this.lastHit = new Date().getTime(); // Milli sekunden seit dem 01.01.1970
+      this.lastHit = new Date().getTime(); // Zeitstempel aktualisieren
     }
   }
 

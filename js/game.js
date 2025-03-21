@@ -9,7 +9,7 @@ let gameOverSound = new Sound("../audio/game_over.wav");
  * This function will be loaded if page is loaded an handles the sound
  */
 function init() {
-  mainMelodie.stop();
+  /*  mainMelodie.stop(); */
   let storedSoundStatus = JSON.parse(localStorage.getItem("soundOn"));
   globalMute = !storedSoundStatus;
   let soundIcon = document.getElementById("muteBtn");

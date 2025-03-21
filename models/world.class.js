@@ -11,7 +11,7 @@ class World {
   statusbarBottle = new Statusbar(statusbarImagesBottles, 20, 100, 0);
   bottleSplashSound = new Sound("../audio/glass_splash.flac");
   throwableObjects = [];
-  groundY = 350;
+  groundY = 340;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -75,7 +75,11 @@ class World {
     setInterval(() => {
       this.level.enemies.forEach(enemy => {
         if (this.character.isColliding(enemy)) {
-          this.character.hit();
+          if (enemy instanceof Endboss) {
+            this.character.hit(40);
+          } else {
+            this.character.hit();
+          }
           this.character.hitSound.play();
           this.statusbarHealth.setPercentage(this.character.energy);
         }
