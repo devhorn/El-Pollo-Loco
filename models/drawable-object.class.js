@@ -15,7 +15,7 @@ class DrawableObject {
   };
 
   /**
-   * Plays an animation by cycling through the provided images.
+   * Plays an animation by going through the provided images.
    * The function selects the current image based on the currentImage index,
    * retrieves it from the cache, and increments the index.
    * @param {string[]} images - Array of image paths for the animation.

@@ -27,6 +27,11 @@ class Throwableobject extends MoveableObject {
     this.splashPlayed = false;
   }
 
+  /**
+   * Plays the rotation animation for the throwable object.
+   * Continuously loops through rotation images every 100ms until a splash event occurs.
+   * The animation stops if the splash has been played.
+   */
   rotationAnimation() {
     let i = 0;
     let rotationInterval = setInterval(() => {
@@ -39,6 +44,13 @@ class Throwableobject extends MoveableObject {
     }, 100);
   }
 
+  /**
+   * Throws the object from the given coordinates.
+   * Sets the object's position, initializes vertical speed, applies gravity,
+   * plays the throwing sound, starts the rotation animation, and moves the object horizontally.
+   * @param {number} x - The x coordinate from which the object is thrown.
+   * @param {number} y - The y coordinate from which the object is thrown.
+   */
   throw(x, y) {
     this.x = x;
     this.y = y;
@@ -51,6 +63,10 @@ class Throwableobject extends MoveableObject {
     }, 25);
   }
 
+  /**
+   * Plays the splash animation for the throwable object.
+   * Cycles through the splash images every 100ms until the end of the sequence is reached.
+   */
   splashAnimation() {
     let i = 0;
     let splashInterval = setInterval(() => {

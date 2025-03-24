@@ -27,14 +27,15 @@ class World {
   }
 
   /**
-   * This function ensures that the properties and methods from the world class are available in the character
+   * Sets the world reference in the character, so the character can access world properties and methods.
    */
   setWorld() {
     this.character.world = this;
   }
 
   /**
-   * This function checks a collosion with a coin or a bottle
+   * Checks for collisions with collectable objects (coins and bottles).
+   * Calls collision check functions for coins and bottles every 1 second.
    */
   checkCollisionsCollectableObjects() {
     setInterval(() => {
@@ -44,7 +45,9 @@ class World {
   }
 
   /**
-   * This function checks the collision with a coin and update the statusbar if a the character is colliding with a coin
+   * Checks for collision between the character and coins.
+   * If a collision is detected, the coin is collected, removed from the level,
+   * and the coin status bar is updated.
    */
   checkCollisionCoin() {
     this.level.coins = this.level.coins.filter(coin => {
@@ -58,7 +61,10 @@ class World {
   }
 
   /**
-   * This function checks the collision with a bottle and update the statusbar if a the character is colliding with a bottle
+   * Checks for collision between the character and bottles.
+   * If a collision is detected and the character has less than 100 bottles,
+   * the bottle is collected, removed from the level,
+   * and the bottle status bar is updated.
    */
   checkCollisionBottle() {
     this.level.bottles = this.level.bottles.filter(bottle => {
@@ -72,8 +78,9 @@ class World {
   }
 
   /**
-   * This function checks if a bottle is thrown by pressing the D key. Throwing is only possible if bottles are collectet before.
-   * After throwing the statusbar will be updated
+   * Checks if the player is throwing an object (bottle) by pressing the D key.
+   * When a throw is detected, a new throwable object is created, thrown,
+   * and the bottle count is decreased while updating the status bar.
    */
   checkThrowObject() {
     setInterval(() => {
@@ -88,8 +95,8 @@ class World {
   }
 
   /**
-   * This function checks if a the character is colliding with an enemy.
-   * Depending on which enemy the character collides with, different damage is applied to the character
+   * Checks for collisions between the character and enemies.
+   * If a collision occurs, applies damage based on enemy type and updates the health status bar.
    */
   checkCollisionEnemie() {
     setInterval(() => {
@@ -108,7 +115,9 @@ class World {
   }
 
   /**
-   * The function checks if the character collides with an enemy from above
+   * Checks if the character collides with an enemy from above.
+   * If a top collision is detected while the character is moving upward,
+   * the character performs a jump and the enemy is defeated.
    */
   checkCollisionsTop() {
     this.level.enemies.forEach(enemy => {
@@ -120,8 +129,10 @@ class World {
   }
 
   /**
-   * This function checks all 50 ms if a thorwableObject (bottle) collide with an enemy
-   * When a chicken is hit, it dies. If the end boss is hit, it takes damage
+   * Checks for collisions between throwable objects (bottles) and enemies every 50 ms.
+   * When a collision occurs, plays a splash sound and triggers the splash animation.
+   * For an enemy, the bottle either kills it or damages the endboss.
+   * The bottle is then removed from the throwable objects list.
    */
   checkCollisionThrowableWithEnemy() {
     setInterval(() => {
@@ -148,7 +159,9 @@ class World {
   }
 
   /**
-   * This function checks all 50 ms if a thorwableObject (bottle) collide the ground
+   * Checks for collisions between throwable objects (bottles) and the ground every 50 ms.
+   * If a collision with the ground is detected, plays a splash sound and triggers the splash animation,
+   * then removes the bottle from the throwable objects list.
    */
   checkCollisionBottleWithGround() {
     setInterval(() => {
@@ -168,9 +181,8 @@ class World {
   }
 
   /**
-   * the function ensures that an enemy first goes through its death process and is then (after 500 ms)
-   * completely removed from the level's enemy list.
-   * @param {object} enemy instance of enemy class
+   * Defeats an enemy by initiating its death process and then removing it from the level's enemy list after 500 ms.
+   * @param {object} enemy - The enemy instance to defeat.
    */
   defeatEnemy(enemy) {
     enemy.die();
@@ -180,7 +192,10 @@ class World {
   }
 
   /**
-   * This function adds the images to the canvas
+   * Draws the game world on the canvas.
+   * Clears the canvas, translates the context based on the camera position,
+   * renders all game objects (background objects, collectibles, enemies, etc.),
+   * and then schedules the next draw call using requestAnimationFrame.
    */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -193,7 +208,7 @@ class World {
     this.addObjectstoMap(this.throwableObjects);
     this.addToMap(this.character);
     this.ctx.translate(-this.cameraX, 0);
-    // ------------ space for fixed Objects -------------- //
+    // Fixed objects (UI elements) are drawn without camera translation.
     this.addToMap(this.statusbarHealth);
     this.addToMap(this.statusbarCoin);
     this.addToMap(this.statusbarBottle);
@@ -201,7 +216,6 @@ class World {
     this.ctx.translate(-this.cameraX, 0);
     this.checkCollisionsCollectableObjects();
     this.checkCollisionsTop();
-    // Draw wird immer wieder aufgerufen
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
@@ -209,7 +223,8 @@ class World {
   }
 
   /**
-   * This function adds multiple Images from a array the canvas
+   * Adds multiple objects from an array to the canvas.
+   * @param {Array} objects - An array of drawable objects.
    */
   addObjectstoMap(objects) {
     objects.forEach(object => {
@@ -218,23 +233,24 @@ class World {
   }
 
   /**
-   * This function adds image the canvas
-   * @param {object} mo - instance of class
+   * Adds a single drawable object to the canvas.
+   * Handles image flipping if the object is moving in the opposite direction.
+   * @param {object} mo - A drawable object instance.
    */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    /* mo.drawFrame(this.ctx); */
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
   }
 
   /**
-   * This function mirrors image
-   * @param {object} mo - instance of class
+   * Flips the image horizontally by saving the current context, translating,
+   * scaling the context, and inverting the object's x coordinate.
+   * @param {object} mo - A drawable object instance.
    */
   flipImage(mo) {
     this.ctx.save();
@@ -244,8 +260,8 @@ class World {
   }
 
   /**
-   * This function mirrors a image back
-   * @param {object} mo - instance of class
+   * Restores the flipped image to its original orientation by reverting the x coordinate and restoring the context.
+   * @param {object} mo - A drawable object instance.
    */
   flipImageBack(mo) {
     mo.x = mo.x * -1;
@@ -253,7 +269,7 @@ class World {
   }
 
   /**
-   * This function stop alle animations of the character
+   * Stops all animations related to the character by calling its stopAnimation method.
    */
   stopAllIntervals() {
     if (this.character) {
@@ -262,7 +278,8 @@ class World {
   }
 
   /**
-   * This function lets the end boss start walking when the character has reached a certain x-value
+   * Activates the endboss by updating its state based on the character's x position.
+   * This causes the endboss to start walking when the character reaches a certain threshold.
    */
   activateEndboss() {
     setInterval(() => {
