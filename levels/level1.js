@@ -16,6 +16,10 @@ enemies = [
   new Endboss(),
 ];
 
+/**
+ * Creates instances of a bottle and push it to the bottles array
+ * depending on the amount in the global amountBottles variable
+ */
 function addBottles() {
   let xPos = 200;
   for (let i = 0; i < amountBottles; i++) {
@@ -24,6 +28,10 @@ function addBottles() {
   }
 }
 
+/**
+ * Creates instances of a cion and push it to the coins array
+ * depending on the amount in the global amountCoins variable
+ */
 function addCoins() {
   let xPos = 100;
   for (let i = 0; i < amountCoins; i++) {

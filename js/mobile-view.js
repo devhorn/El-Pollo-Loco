@@ -1,5 +1,5 @@
 /**
- * This function checks if the page is running on a mobile device
+ * Checks if the page is running on a mobile device
  * @returns {boolean} returns true if on of this devices is detected
  */
 function isMobileDevice() {
@@ -7,7 +7,7 @@ function isMobileDevice() {
 }
 
 /**
- * This function checks if the page is in landscape mode
+ * Checks if the page is in landscape mode
  * @returns {boolean} returns true if page is in landscape mode
  */
 function isLandscape() {
@@ -15,7 +15,7 @@ function isLandscape() {
 }
 
 /**
- * This function creates the overlay which is diplayed if page is running on mobile and not in landscape mode
+ * Creates the overlay which is diplayed if page is running on mobile and not in landscape mode
  */
 function showOverlay() {
   let overlay = document.getElementById("orientationOverlay");

@@ -121,9 +121,11 @@ class World {
    */
   checkCollisionsTop() {
     this.level.enemies.forEach(enemy => {
-      if (this.character.isCollidingOnTop(enemy) && this.character.speedY < 0) {
-        this.character.jump();
-        this.defeatEnemy(enemy);
+      if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
+        if (this.character.isCollidingOnTop(enemy) && this.character.speedY < 0) {
+          this.character.jump();
+          this.defeatEnemy(enemy);
+        }
       }
     });
   }

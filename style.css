@@ -27,11 +27,11 @@ canvas {
 }
 
 .gameOverOverlay {
-  width: clamp(320px, 100%, 720px); /* passt sich in der Breite an */
-  aspect-ratio: 710 / 480; /* behält das Seitenverhältnis bei, falls nötig */
+  width: clamp(320px, 100%, 720px);
+  aspect-ratio: 710 / 480;
   background-color: #f9ca58;
   background-image: url("./img/You won, you lost/You lost.png");
-  background-size: contain; /* Oder "contain", wenn du den gesamten Inhalt siehst */
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
   position: absolute;
@@ -70,9 +70,9 @@ canvas {
 
 .gameStartOverlay {
   width: clamp(320px, 100%, 720px);
-  aspect-ratio: 710 / 480; /* Hält das Seitenverhältnis konstant */
+  aspect-ratio: 710 / 480;
   background-image: url("./img/9_intro_outro_screens/start/startscreen_1.png");
-  background-size: contain; /* Oder "contain", wenn du den gesamten Inhalt siehst */
+  background-size: contain;
   background-repeat: no-repeat;
   position: absolute;
   top: 0px;
@@ -124,7 +124,7 @@ canvas {
   background-color: #f9ca58;
   display: flex;
   background-image: url("./img/You won, you lost/You Win A.png");
-  background-size: contain; /* Oder "contain", wenn du den gesamten Inhalt siehst */
+  background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
   justify-content: flex-end;
@@ -210,24 +210,15 @@ canvas {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  position: absolute;
   top: 0px;
+  position: absolute;
   flex-direction: column;
-  padding-top: 8px;
-  padding-bottom: 32px;
-  z-index: 6;
-}
-
-.impressumContent {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 32px 32px;
+  z-index: 5;
 }
 
 .impressumContent p {
   color: #3f3f3f;
+  font-size: 24px;
 }
 
 .headText:hover {
@@ -240,9 +231,9 @@ canvas {
   left: 0;
   right: 0;
   display: flex;
-  justify-content: space-between; /* oder "center", je nachdem, wie du die Buttons anordnen möchtest */
+  justify-content: space-between;
   padding: 8px 32px;
-  z-index: 3; /* stellt sicher, dass das Overlay über dem Canvas liegt */
+  z-index: 3;
 }
 
 .mobileActionKeys {
@@ -273,6 +264,10 @@ canvas {
   .content {
     overflow-y: hidden;
   }
+
+  .impressumContent p {
+    font-size: 20px;
+  }
 }
 
 @media only screen and (max-width: 720px) {
@@ -283,14 +278,22 @@ canvas {
     width: 100%;
     overflow-y: hidden;
   }
+
+  .impressumContent p {
+    font-size: 20px;
+  }
 }
 
 @media only screen and (max-height: 480px) {
   canvas {
-    height: 100vh;
+    height: 101vh;
   }
   .content {
     height: 100vh;
+  }
+
+  .impressumContent p {
+    font-size: 20px;
   }
 }
 
@@ -299,6 +302,20 @@ canvas {
     font-size: 18px;
     gap: 15px;
     margin-bottom: 8px;
+  }
+
+  .impressumContent {
+    padding-bottom: 16px;
+  }
+
+  .impressumContent p {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 510px) {
+  .impressumContent p {
+    font-size: 16px;
   }
 }
 
@@ -349,5 +366,9 @@ canvas {
   .closeIcon {
     height: 30px;
     width: 30px;
+  }
+
+  .description p {
+    padding-top: 8px;
   }
 }
