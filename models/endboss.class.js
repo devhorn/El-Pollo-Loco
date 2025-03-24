@@ -50,6 +50,10 @@ class Endboss extends MoveableObject {
     this.animateAlert();
   }
 
+  /**
+   * Starts the alert animation.
+   * Continuously plays the alert animation if the trigger is not activated.
+   */
   animateAlert() {
     setInterval(() => {
       if (!this.triggerActivated) {
@@ -58,6 +62,12 @@ class Endboss extends MoveableObject {
     }, 300);
   }
 
+  /**
+   * Updates the endboss state based on the character's x position.
+   * If the character reaches a certain position, the trigger is activated and movement starts.
+   *
+   * @param {number} characterX - The current x position of the character.
+   */
   update(characterX) {
     if (!this.triggerActivated && characterX >= 2100) {
       this.triggerActivated = true;
@@ -65,6 +75,11 @@ class Endboss extends MoveableObject {
     }
   }
 
+  /**
+   * Starts the endboss movement.
+   * Initiates both the animation and movement intervals for the walking state.
+   * The boss moves left until it reaches the minimum x position.
+   */
   startMovement() {
     this.animationInterval = setInterval(() => {
       this.playAnimation(this.imagesWalking);
@@ -79,6 +94,12 @@ class Endboss extends MoveableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Handles the endboss being hit by a bottle.
+   * Plays the hit sound, increments hit counter, temporarily shows the hurt animation,
+   * and restarts movement unless the boss is defeated. If the hit count exceeds the limit,
+   * the boss dies.
+   */
   hitByBottle() {
     if (this.isDefeated) return;
     if (this.hits < 3) {
@@ -99,6 +120,11 @@ class Endboss extends MoveableObject {
     }
   }
 
+  /**
+   * Handles the death sequence of the endboss.
+   * Plays the death sound, clears animations, marks the boss as defeated,
+   * plays the death animation, displays the "game won" overlay, and executes final game end tasks.
+   */
   dieBoss() {
     this.endbossDieSound.play();
     this.clearEndbossAnimations();
@@ -115,11 +141,18 @@ class Endboss extends MoveableObject {
     }, 1000);
   }
 
+  /**
+   * Clears all endboss-related animation and movement intervals.
+   */
   clearEndbossAnimations() {
     clearInterval(this.movementInterval);
     clearInterval(this.animationInterval);
   }
 
+  /**
+   * Executes tasks to end the game.
+   * Stops the main melody, plays the victory sound, and clears all intervals.
+   */
   gameEndTasks() {
     mainMelodie.stop();
     youWinSound.play();

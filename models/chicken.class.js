@@ -19,6 +19,10 @@ class Chicken extends MoveableObject {
     this.speed = Math.random() * (0.4 - 0.15) + 0.15;
   }
 
+  /**
+   * Starts the chicken's walking and movement animations.
+   * Sets up intervals to cycle through the walking images and move the chicken left.
+   */
   animate() {
     this.walkInterval = setInterval(() => {
       if (!this.isDead) {
@@ -32,6 +36,10 @@ class Chicken extends MoveableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Kills the chicken by playing the death sound, stopping animations,
+   * switching to the death image, and moving the chicken off-screen after a delay.
+   */
   die() {
     if (this.isDead) return;
     this.chickenCackle.play();

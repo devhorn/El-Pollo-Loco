@@ -11,6 +11,10 @@ class Sound {
     allSounds.push(this);
   }
 
+  /**
+   * This functio is for playing the sound
+   * @param {boolean} loop - if true sound is playing non stop, else sound will be played only one time
+   */
   play(loop = false) {
     this.audio.loop = loop;
     if (this.audio.paused) {
