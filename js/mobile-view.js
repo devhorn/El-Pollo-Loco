@@ -1,11 +1,22 @@
+/**
+ * This function checks if the page is running on a mobile device
+ * @returns {boolean} returns true if on of this devices is detected
+ */
 function isMobileDevice() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
+/**
+ * This function checks if the page is in landscape mode
+ * @returns {boolean} returns true if page is in landscape mode
+ */
 function isLandscape() {
   return window.innerWidth > window.innerHeight;
 }
 
+/**
+ * This function creates the overlay which is diplayed if page is running on mobile and not in landscape mode
+ */
 function showOverlay() {
   let overlay = document.getElementById("orientationOverlay");
   if (!overlay) {
@@ -29,6 +40,9 @@ function showOverlay() {
   overlay.style.display = "flex";
 }
 
+/**
+ * This function hides the overlay
+ */
 function hideOverlay() {
   const overlay = document.getElementById("orientationOverlay");
   if (overlay) {
@@ -36,6 +50,10 @@ function hideOverlay() {
   }
 }
 
+/**
+ * This eventlistener checks if the page is running on mobile device and if the page is in landscape mode.
+ * If its in mobile the mobile keys will be shown. If its not in landscape mode the overlay for turning the device will be shown
+ */
 window.addEventListener("load", function () {
   const mobileKeys = document.getElementById("mobileKeys");
   if (isMobileDevice()) {
@@ -51,6 +69,10 @@ window.addEventListener("load", function () {
   }
 });
 
+/**
+ * This eventlistener checks if the page is running on mobile device and if the page is in landscape mode.
+ * This function removes the overlay when the user is switching to landscape mode
+ */
 window.addEventListener("resize", function () {
   const mobileKeys = document.getElementById("mobileKeys");
   if (isMobileDevice()) {
@@ -66,6 +88,10 @@ window.addEventListener("resize", function () {
   }
 });
 
+/**
+ * This eventlistener checks if the page is running on mobile device and if the page is in landscape mode.
+ * This function removes the overlay when the user is switching to landscape mode
+ */
 window.addEventListener("resize", function () {
   if (isMobileDevice()) {
     if (isLandscape()) {
