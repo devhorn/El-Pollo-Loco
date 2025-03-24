@@ -95,11 +95,18 @@ class Character extends MoveableObject {
     this.animate();
   }
 
+  /**
+   * Initiates the overall animation sequence for the character.
+   * This includes both movement and state-based animations.
+   */
   animate() {
     this.movementsOfCharacter();
     this.animationsOfCharacter();
   }
 
+  /**
+   * Displays the game over screen by removing the 'dNone' class from the overlay element.
+   */
   showGameOverScreen() {
     const overlay = document.getElementById("gameOverOverlay");
     if (overlay) {
@@ -107,11 +114,18 @@ class Character extends MoveableObject {
     }
   }
 
+  /**
+   * Stops all animation intervals associated with the character.
+   */
   stopAnimation() {
     clearInterval(this.movementInterval);
     clearInterval(this.animationInterval);
   }
 
+  /**
+   * Increases the bottle count and plays the collection sound.
+   * Caps the bottle count at 100.
+   */
   collectBottle() {
     this.bottles += 20;
     this.collectBottleSound.play();
@@ -120,6 +134,10 @@ class Character extends MoveableObject {
     }
   }
 
+  /**
+   * Increases the coin count and plays the collection sound.
+   * Caps the coin count at 100.
+   */
   collectCoin() {
     this.coins += 20;
     this.collectCoinSound.play();
@@ -128,19 +146,31 @@ class Character extends MoveableObject {
     }
   }
 
+  /**
+   * Initiates the jump action by setting the vertical speed.
+   */
   jump() {
     this.speedY = 33;
   }
 
+  /**
+   * Reduces the character's energy by the specified damage.
+   * Updates the last hit timestamp if energy remains.
+   * @param {number} [damage=20] - The amount of damage to inflict.
+   */
   hit(damage = 20) {
     this.energy -= damage;
     if (this.energy < 0) {
       this.energy = 0;
     } else {
-      this.lastHit = new Date().getTime(); // Zeitstempel aktualisieren
+      this.lastHit = new Date().getTime();
     }
   }
 
+  /**
+   * Handles the movement of the character by processing keyboard inputs
+   * and updating movement-related states, sounds, and camera position.
+   */
   movementsOfCharacter() {
     this.movementInterval = setInterval(() => {
       this.handleHorizontalMovement();
@@ -150,6 +180,10 @@ class Character extends MoveableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Processes horizontal movement based on keyboard inputs for left and right.
+   * Updates movement state and stops the snore sound.
+   */
   handleHorizontalMovement() {
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
       this.moveRight();
@@ -163,6 +197,10 @@ class Character extends MoveableObject {
     }
   }
 
+  /**
+   * Processes the jump action when the jump key is pressed.
+   * Initiates the jump, plays the jump sound, and updates the movement state.
+   */
   handleJump() {
     if (this.world.keyboard.SPACE && !this.isAboveGround()) {
       this.jump();
@@ -171,11 +209,19 @@ class Character extends MoveableObject {
     }
   }
 
+  /**
+   * Registers a movement event by updating the last move timestamp
+   * and stopping the snore sound.
+   */
   registerMovement() {
     this.lastMoveTime = Date.now();
     this.snoreSound.stop();
   }
 
+  /**
+   * Plays the walking sound when horizontal movement keys are pressed,
+   * and stops it otherwise.
+   */
   handleWalkingSound() {
     if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()) {
       this.walkingSound.play(true);
@@ -184,10 +230,17 @@ class Character extends MoveableObject {
     }
   }
 
+  /**
+   * Updates the camera position based on the character's current x position.
+   */
   updateCamera() {
     this.world.cameraX = -this.x + 100;
   }
 
+  /**
+   * Handles the character's animation state based on its current conditions.
+   * Checks for death, hurt, jumping, and idle/movement animations.
+   */
   animationsOfCharacter() {
     this.animationInterval = setInterval(() => {
       if (this.handleDeathAnimation()) return;
@@ -197,6 +250,11 @@ class Character extends MoveableObject {
     }, 100);
   }
 
+  /**
+   * Checks if the character is dead. If so, plays the death animation,
+   * clears all intervals, shows the game over screen, and plays the game over sound.
+   * @returns {boolean} True if the death animation was handled; otherwise, false.
+   */
   handleDeathAnimation() {
     if (this.isDead()) {
       this.playAnimation(this.imagesDead);
@@ -208,6 +266,10 @@ class Character extends MoveableObject {
     return false;
   }
 
+  /**
+   * Checks if the character is hurt. If so, plays the hurt animation.
+   * @returns {boolean} True if the hurt animation was handled; otherwise, false.
+   */
   handleHurtAnimation() {
     if (this.isHurt()) {
       this.playAnimation(this.imagesHurt);
@@ -216,6 +278,11 @@ class Character extends MoveableObject {
     return false;
   }
 
+  /**
+   * Checks if the character is in the air (jumping).
+   * If so, plays the jumping animation.
+   * @returns {boolean} True if the jump animation was handled; otherwise, false.
+   */
   handleJumpAnimation() {
     if (this.isAboveGround()) {
       this.playJumpAnimation(this.imagesJumping);
@@ -224,6 +291,11 @@ class Character extends MoveableObject {
     return false;
   }
 
+  /**
+   * Handles idle or movement animations based on the character's inactivity.
+   * If the character has been inactive for 15 seconds, plays the sleep animation and snore sound.
+   * Otherwise, plays walking or idle animations based on keyboard input.
+   */
   handleIdleOrMovementAnimation() {
     if (Date.now() - this.lastMoveTime >= 15000) {
       this.playAnimation(this.imagesSleep);
