@@ -298,7 +298,7 @@ class Character extends MoveableObject {
 
   /**
    * Handles idle or movement animations based on the character's inactivity.
-   * If the character has been inactive for 15 seconds, plays the sleep animation and snore sound.
+   * If the character has been inactive for 7 seconds, plays the sleep animation and snore sound.
    * Otherwise, plays walking or idle animations based on keyboard input.
    */
   handleIdleOrMovementAnimation() {
