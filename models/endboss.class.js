@@ -35,7 +35,7 @@ class Endboss extends MoveableObject {
   triggerActivated = false;
   movingLeft = true;
   startingX = 2600;
-  minX = 1600;
+  minX = 200;
   hits = 0;
   life = 100;
 

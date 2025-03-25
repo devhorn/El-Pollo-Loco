@@ -77,6 +77,7 @@ class Character extends MoveableObject {
   bottles = 0;
   lastMoveTime = Date.now();
   lastBottleThrow = 0;
+  gameEnded = false;
 
   constructor() {
     super().loadImage("../img/2_character_pepe/2_walk/W-21.png");
@@ -121,6 +122,8 @@ class Character extends MoveableObject {
   stopAnimation() {
     clearInterval(this.movementInterval);
     clearInterval(this.animationInterval);
+    this.walkingSound.stop();
+    this.snoreSound.stop();
   }
 
   /**
@@ -224,6 +227,7 @@ class Character extends MoveableObject {
    * and stops it otherwise.
    */
   handleWalkingSound() {
+    if (this.gameEnded) return; // Wenn Spiel beendet, nichts tun
     if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()) {
       this.walkingSound.play(true);
     } else {
@@ -298,7 +302,12 @@ class Character extends MoveableObject {
    * Otherwise, plays walking or idle animations based on keyboard input.
    */
   handleIdleOrMovementAnimation() {
-    if (Date.now() - this.lastMoveTime >= 4000) {
+    if (this.gameEnded) {
+      this.walkingSound.stop();
+      this.snoreSound.stop();
+      return;
+    }
+    if (Date.now() - this.lastMoveTime >= 7000) {
       this.playAnimation(this.imagesSleep);
       this.snoreSound.play(true);
     } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
