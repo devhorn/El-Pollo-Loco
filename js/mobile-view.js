@@ -1,21 +1,65 @@
 /**
- * Checks if the page is running on a mobile device
- * @returns {boolean} returns true if on of this devices is detected
+ * Checks if the device is an iPad Air.
+ * iPad Air: Portrait 820x1180 and Landscape 1180x820.
  */
-function isMobileDevice() {
-  return /Android|webOS|iPhone|iPad|iPad Air|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+function isIpadAir() {
+  return (
+    (window.innerWidth === 820 && window.innerHeight === 1180) ||
+    (window.innerWidth === 1180 && window.innerHeight === 820)
+  );
 }
 
 /**
- * Checks if the page is in landscape mode
- * @returns {boolean} returns true if page is in landscape mode
+ * Checks if the device is an iPad Pro.
+ * iPad Pro: Portrait 1024x1366 and Landscape 1366x1024.
+ */
+function isIpadPro() {
+  return (
+    (window.innerWidth === 1024 && window.innerHeight === 1366) ||
+    (window.innerWidth === 1366 && window.innerHeight === 1024)
+  );
+}
+
+/**
+ * Checks if the iPad Air is in landscape mode (resolution 1180x820).
+ */
+function isIpadAirLandscape() {
+  return window.innerWidth === 1180 && window.innerHeight === 820;
+}
+
+/**
+ * Checks if the iPad Pro is in landscape mode (resolution 1366x1024).
+ */
+function isIpadProLandscape() {
+  return window.innerWidth === 1366 && window.innerHeight === 1024;
+}
+
+/**
+ * Checks if the page is running on a mobile device.
+ * This function not only performs the standard User-Agent checks,
+ * but also verifies if the device is an iPad (Air or Pro).
+ */
+function isMobileDevice() {
+  const ua = navigator.userAgent;
+  const isMobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+  // iPads are considered mobile devices even if the User-Agent sometimes appears desktop-like.
+  const isiPad = /iPad/i.test(ua) || isIpadAir() || isIpadPro();
+  return isMobileUA || isiPad;
+}
+
+/**
+ * Checks if the device is in landscape mode.
+ * For iPad Air and iPad Pro, it checks based on the resolution.
  */
 function isLandscape() {
+  if (isIpadAir() || isIpadPro()) {
+    return isIpadAirLandscape() || isIpadProLandscape();
+  }
   return window.innerWidth > window.innerHeight;
 }
 
 /**
- * Creates the overlay which is diplayed if page is running on mobile and not in landscape mode
+ * Creates and displays an overlay if the orientation is not correct.
  */
 function showOverlay() {
   let overlay = document.getElementById("orientationOverlay");
@@ -41,7 +85,7 @@ function showOverlay() {
 }
 
 /**
- * This function hides the overlay
+ * Hides the overlay.
  */
 function hideOverlay() {
   const overlay = document.getElementById("orientationOverlay");
@@ -51,8 +95,9 @@ function hideOverlay() {
 }
 
 /**
- * This eventlistener checks if the page is running on mobile device and if the page is in landscape mode.
- * If its in mobile the mobile keys will be shown. If its not in landscape mode the overlay for turning the device will be shown
+ * On page load:
+ * If the page is running on a mobile device, the mobile keys are displayed
+ * only if the device is in landscape mode (or has the correct resolution for iPad Air/Pro).
  */
 window.addEventListener("load", function () {
   const mobileKeys = document.getElementById("mobileKeys");
@@ -70,8 +115,7 @@ window.addEventListener("load", function () {
 });
 
 /**
- * This eventlistener checks if the page is running on mobile device and if the page is in landscape mode.
- * This function removes the overlay when the user is switching to landscape mode
+ * On window resize (e.g., rotation), the mobile keys and overlay are updated accordingly.
  */
 window.addEventListener("resize", function () {
   const mobileKeys = document.getElementById("mobileKeys");
@@ -85,19 +129,5 @@ window.addEventListener("resize", function () {
     }
   } else {
     mobileKeys.style.display = "none";
-  }
-});
-
-/**
- * This eventlistener checks if the page is running on mobile device and if the page is in landscape mode.
- * This function removes the overlay when the user is switching to landscape mode
- */
-window.addEventListener("resize", function () {
-  if (isMobileDevice()) {
-    if (isLandscape()) {
-      hideOverlay();
-    } else {
-      showOverlay();
-    }
   }
 });

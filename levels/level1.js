@@ -1,6 +1,5 @@
 amountCoins = 10;
 amountBottles = 7;
-
 coins = [];
 bottles = [];
 enemies = [
