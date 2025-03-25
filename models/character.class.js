@@ -150,7 +150,7 @@ class Character extends MoveableObject {
    * Initiates the jump action by setting the vertical speed.
    */
   jump() {
-    this.speedY = 33;
+    this.speedY = 25;
   }
 
   /**
