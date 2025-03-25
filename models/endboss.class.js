@@ -37,6 +37,7 @@ class Endboss extends MoveableObject {
   startingX = 2600;
   minX = 1600;
   hits = 0;
+  life = 100;
 
   constructor() {
     super().loadImage(this.imagesAlert[0]);
@@ -102,20 +103,19 @@ class Endboss extends MoveableObject {
    */
   hitByBottle() {
     if (this.isDefeated) return;
-    if (this.hits < 3) {
-      this.endbossHitSound.play();
-      this.hits++;
-      this.clearEndbossAnimations();
-      let hurtInterval = setInterval(() => {
-        this.playAnimation(this.imagesHurt);
-      }, 150);
-      setTimeout(() => {
-        clearInterval(hurtInterval);
-        if (!this.isDefeated) {
-          this.startMovement();
-        }
-      }, 1000);
-    } else {
+    this.life -= 20;
+    this.endbossHitSound.play();
+    this.clearEndbossAnimations();
+    let hurtInterval = setInterval(() => {
+      this.playAnimation(this.imagesHurt);
+    }, 150);
+    setTimeout(() => {
+      clearInterval(hurtInterval);
+      if (this.life > 0 && !this.isDefeated) {
+        this.startMovement();
+      }
+    }, 1000);
+    if (this.life <= 0) {
       this.dieBoss();
     }
   }

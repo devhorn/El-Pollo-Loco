@@ -297,7 +297,7 @@ class Character extends MoveableObject {
    * Otherwise, plays walking or idle animations based on keyboard input.
    */
   handleIdleOrMovementAnimation() {
-    if (Date.now() - this.lastMoveTime >= 15000) {
+    if (Date.now() - this.lastMoveTime >= 4000) {
       this.playAnimation(this.imagesSleep);
       this.snoreSound.play(true);
     } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {

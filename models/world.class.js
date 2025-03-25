@@ -9,9 +9,11 @@ class World {
   statusbarHealth = new Statusbar(statusbarImagesHealth, 20, 0, 100);
   statusbarCoin = new Statusbar(statusbarImagesCoins, 20, 50, 0);
   statusbarBottle = new Statusbar(statusbarImagesBottles, 20, 100, 0);
+  statusbarEndboss = new Statusbar(statusbarImagesEndboss, 500, 0, 100);
   bottleSplashSound = new Sound("../audio/glass_splash.flac");
   throwableObjects = [];
   groundY = 340;
+  showEndbossBar = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -131,33 +133,51 @@ class World {
   }
 
   /**
-   * Checks for collisions between throwable objects (bottles) and enemies every 50 ms.
-   * When a collision occurs, plays a splash sound and triggers the splash animation.
-   * For an enemy, the bottle either kills it or damages the endboss.
-   * The bottle is then removed from the throwable objects list.
+   * Periodically checks for collisions between throwable objects and enemies.
+   *
+   * @returns {void}
    */
   checkCollisionThrowableWithEnemy() {
     setInterval(() => {
       this.throwableObjects.forEach((bottle, bottleIndex) => {
         this.level.enemies.forEach(enemy => {
-          if (bottle.isColliding(enemy)) {
-            if (!bottle.splashPlayed) {
-              this.bottleSplashSound.play();
-              bottle.splashPlayed = true;
-              bottle.splashAnimation();
-              if (enemy instanceof Endboss) {
-                enemy.hitByBottle();
-              } else {
-                enemy.die();
-              }
-              setTimeout(() => {
-                this.throwableObjects.splice(bottleIndex, 1);
-              }, 600);
-            }
-          }
+          this.processBottleCollision(bottle, enemy, bottleIndex);
         });
       });
     }, 50);
+  }
+
+  /**
+   * Processes the collision between a bottle and an enemy.
+   * Plays splash sound and animation, handles enemy hit or death and schedules the removal of the bottle.
+   * @param {Object} bottle - The throwable bottle object.
+   * @param {Object} enemy - The enemy object.
+   * @param {number} bottleIndex - The index of the bottle in the throwableObjects array.
+   */
+  processBottleCollision(bottle, enemy, bottleIndex) {
+    if (bottle.isColliding(enemy) && !bottle.splashPlayed) {
+      this.bottleSplashSound.play();
+      bottle.splashPlayed = true;
+      bottle.splashAnimation();
+      if (enemy instanceof Endboss) {
+        enemy.hitByBottle();
+        this.statusbarEndboss.setPercentage(enemy.life);
+      } else {
+        enemy.die();
+      }
+      this.removeBottleAfterDelay(bottleIndex, 600);
+    }
+  }
+
+  /**
+   * Removes a bottle from the throwableObjects array after a specified delay.
+   * @param {number} bottleIndex - The index of the bottle to remove.
+   * @param {number} delay - The delay in milliseconds before removal.
+   */
+  removeBottleAfterDelay(bottleIndex, delay) {
+    setTimeout(() => {
+      this.throwableObjects.splice(bottleIndex, 1);
+    }, delay);
   }
 
   /**
@@ -194,13 +214,29 @@ class World {
   }
 
   /**
-   * Draws the game world on the canvas.
-   * Clears the canvas, translates the context based on the camera position,
-   * renders all game objects (background objects, collectibles, enemies, etc.),
-   * and then schedules the next draw call using requestAnimationFrame.
+   * Draws the current frame by clearing the canvas, drawing moving objects, drawing status bars,
+   * and handling collisions. Calls itself repeatedly with requestAnimationFrame.
    */
   draw() {
+    this.clearCanvas();
+    this.drawingObjects();
+    this.drawStatusBars();
+    this.handleCollisions();
+    requestAnimationFrame(() => this.draw());
+  }
+
+  /**
+   * Clears the entire canvas.
+   */
+  clearCanvas() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  /**
+   * Draws all moving objects that are rendered relative to the camera.
+   * This includes background objects, bottles, coins, clouds, enemies, throwable objects, and the character.
+   */
+  drawingObjects() {
     this.ctx.translate(this.cameraX, 0);
     this.addObjectstoMap(this.level.backgroundObjects);
     this.addObjectstoMap(this.level.bottles);
@@ -210,18 +246,26 @@ class World {
     this.addObjectstoMap(this.throwableObjects);
     this.addToMap(this.character);
     this.ctx.translate(-this.cameraX, 0);
-    // Fixed objects (UI elements) are drawn without camera translation.
+  }
+
+  /**
+   * Draws the status bars, such as health, coins, and bottles.
+   */
+  drawStatusBars() {
     this.addToMap(this.statusbarHealth);
     this.addToMap(this.statusbarCoin);
     this.addToMap(this.statusbarBottle);
-    this.ctx.translate(this.cameraX, 0);
-    this.ctx.translate(-this.cameraX, 0);
+    if (this.showEndbossBar) {
+      this.addToMap(this.statusbarEndboss);
+    }
+  }
+
+  /**
+   * Handles collision detection for collectable objects and top collisions.
+   */
+  handleCollisions() {
     this.checkCollisionsCollectableObjects();
     this.checkCollisionsTop();
-    let self = this;
-    requestAnimationFrame(function () {
-      self.draw();
-    });
   }
 
   /**
@@ -288,6 +332,9 @@ class World {
       this.level.enemies.forEach(enemy => {
         if (enemy instanceof Endboss) {
           enemy.update(this.character.x);
+          if (enemy.triggerActivated && !this.showEndbossBar) {
+            this.showEndbossBar = true;
+          }
         }
       });
     }, 1000 / 60);
