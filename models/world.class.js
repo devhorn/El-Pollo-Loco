@@ -86,12 +86,18 @@ class World {
    */
   checkThrowObject() {
     setInterval(() => {
-      if (this.keyboard.D && this.character.bottles > 0) {
-        let bottle = new Throwableobject();
-        this.throwableObjects.push(bottle);
-        bottle.throw(this.character.x + 50, this.character.y + 50);
-        this.character.bottles -= 20;
-        this.statusbarBottle.setPercentage(this.character.bottles);
+      // Prüfe, ob Taste D gedrückt ist, Flaschen vorhanden sind und der Charakter NICHT schläft
+      if (this.keyboard.D && this.character.bottles > 0 && Date.now() - this.character.lastMoveTime < 4000) {
+        let currentTime = Date.now();
+        // Cooldown: Nur alle 1000ms darf eine neue Flasche geworfen werden
+        if (currentTime - this.character.lastBottleThrow >= 1500) {
+          this.character.lastBottleThrow = currentTime;
+          let bottle = new Throwableobject();
+          this.throwableObjects.push(bottle);
+          bottle.throw(this.character.x + 50, this.character.y + 50);
+          this.character.bottles -= 20;
+          this.statusbarBottle.setPercentage(this.character.bottles);
+        }
       }
     }, 120);
   }

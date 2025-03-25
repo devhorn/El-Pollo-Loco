@@ -76,6 +76,7 @@ class Character extends MoveableObject {
   coins = 0;
   bottles = 0;
   lastMoveTime = Date.now();
+  lastBottleThrow = 0;
 
   constructor() {
     super().loadImage("../img/2_character_pepe/2_walk/W-21.png");
