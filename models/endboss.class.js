@@ -85,7 +85,6 @@ class Endboss extends MoveableObject {
     this.animationInterval = setInterval(() => {
       this.playAnimation(this.imagesWalking);
     }, 150);
-
     this.movementInterval = setInterval(() => {
       if (this.x > this.minX) {
         this.moveLeft();

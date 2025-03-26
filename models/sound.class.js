@@ -12,7 +12,7 @@ class Sound {
   }
 
   play(loop = false) {
-    if (globalMute) return; // Kein Sound abspielen, wenn globalMute aktiv ist
+    if (globalMute) return;
     this.audio.loop = loop;
     if (this.audio.paused) {
       this.audio.play();

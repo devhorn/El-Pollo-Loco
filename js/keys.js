@@ -49,7 +49,7 @@ window.addEventListener("keyup", e => {
 });
 
 /**
- * Add touch event listeners for the on-screen left button.
+ * Add touch event listeners for the mobile screen left button.
  * When the touch starts, prevent the default behavior and set keyboard.LEFT to true.
  * When the touch ends, prevent the default behavior and set keyboard.LEFT to false.
  */
@@ -63,7 +63,7 @@ document.getElementById("btnLeft").addEventListener("touchend", e => {
 });
 
 /**
- * Add touch event listeners for the on-screen right button.
+ * Add touch event listeners for the mobile screen right button.
  * When the touch starts, prevent the default behavior and set keyboard.RIGHT to true.
  * When the touch ends, prevent the default behavior and set keyboard.RIGHT to false.
  */
@@ -77,7 +77,7 @@ document.getElementById("btnRight").addEventListener("touchend", e => {
 });
 
 /**
- * Add touch event listeners for the on-screen jump button.
+ * Add touch event listeners for the mobile screen jump button.
  * When the touch starts, prevent the default behavior and set keyboard.SPACE to true (for jump).
  * When the touch ends, prevent the default behavior and set keyboard.SPACE to false.
  */
@@ -91,7 +91,7 @@ document.getElementById("btnJump").addEventListener("touchend", e => {
 });
 
 /**
- * Add touch event listeners for the on-screen throw button.
+ * Add touch event listeners for the mobile screen throw button.
  * When the touch starts, prevent the default behavior and set keyboard.D to true (for throw).
  * When the touch ends, prevent the default behavior and set keyboard.D to false.
  */
