@@ -96,9 +96,8 @@ class Endboss extends MoveableObject {
 
   /**
    * Handles the endboss being hit by a bottle.
-   *
    * Applies damage, plays hit effects, and triggers the hurt animation.
-   * If the boss's life drops to 0 or below, the boss dies.
+   * If the endboss's life drops to 0 or below, the endboss dies.
    */
   hitByBottle() {
     if (this.isDefeated) return;

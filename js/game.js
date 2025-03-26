@@ -237,6 +237,12 @@ function setSoundStatusMute() {
   saveToLocalStorage(false);
 }
 
+/**
+ * Stops all sounds except for those provided in the exceptions array.
+ * Iterates over the global 'allSounds' array and stops each sound that is not included
+ * in the 'exceptions' array by calling its stop() method.
+ * @param {Array} [exceptions=[]] - An array of sound objects that should not be stopped.
+ */
 function stopAllSoundsExcept(exceptions = []) {
   allSounds.forEach(sound => {
     if (!exceptions.includes(sound)) {
