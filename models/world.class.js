@@ -109,7 +109,7 @@ class World {
       this.level.enemies.forEach(enemy => {
         if (this.character.isColliding(enemy)) {
           if (enemy instanceof Endboss) {
-            this.character.hit(40);
+            this.character.hit(60);
           } else {
             this.character.hit();
           }
@@ -117,7 +117,7 @@ class World {
           this.statusbarHealth.setPercentage(this.character.energy);
         }
       });
-    }, 1000);
+    }, 350);
   }
 
   /**
