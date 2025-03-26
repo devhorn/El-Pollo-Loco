@@ -45,7 +45,7 @@ class Endboss extends MoveableObject {
     this.loadImages(this.imagesWalking);
     this.loadImages(this.imagesHurt);
     this.loadImages(this.imagesDead);
-    this.speed = 2.5;
+    this.speed = 5;
     this.endbossHitSound = new Sound("../audio/hit_endboss.wav");
     this.endbossDieSound = new Sound("../audio/die_endboss.wav", 0.2);
     this.animateAlert();
@@ -96,15 +96,18 @@ class Endboss extends MoveableObject {
 
   /**
    * Handles the endboss being hit by a bottle.
-   * Plays the hit sound, increments hit counter, temporarily shows the hurt animation,
-   * and restarts movement unless the boss is defeated. If the hit count exceeds the limit,
-   * the boss dies.
+   *
+   * Applies damage, plays hit effects, and triggers the hurt animation.
+   * If the boss's life drops to 0 or below, the boss dies.
    */
   hitByBottle() {
     if (this.isDefeated) return;
-    this.life -= 20;
-    this.endbossHitSound.play();
-    this.clearEndbossAnimations();
+    this.applyDamage(20);
+    if (this.life <= 0) {
+      this.dieBoss();
+      return;
+    }
+    this.playHitEffects();
     let hurtInterval = setInterval(() => {
       this.playAnimation(this.imagesHurt);
     }, 150);
@@ -114,9 +117,22 @@ class Endboss extends MoveableObject {
         this.startMovement();
       }
     }, 1000);
-    if (this.life <= 0) {
-      this.dieBoss();
-    }
+  }
+
+  /**
+   * Reduces the endboss's life by the given damage value.
+   * @param {number} damage - The damage amount to subtract from life.
+   */
+  applyDamage(damage) {
+    this.life -= damage;
+  }
+
+  /**
+   * Plays the hit sound and clears the endboss's animations.
+   */
+  playHitEffects() {
+    this.endbossHitSound.play();
+    this.clearEndbossAnimations();
   }
 
   /**
@@ -154,6 +170,7 @@ class Endboss extends MoveableObject {
    */
   gameEndTasks() {
     mainMelodie.stop();
+    stopAllSoundsExcept([youWinSound]);
     youWinSound.play();
     clearAllIntervals();
   }

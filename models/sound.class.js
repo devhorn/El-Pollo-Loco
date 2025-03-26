@@ -11,6 +11,13 @@ class Sound {
     allSounds.push(this);
   }
 
+  /**
+   * Plays the audio.
+   * If the global mute is enabled, the function exits without playing.
+   * Otherwise, it sets the loop property of the audio element to the provided value.
+   * If the audio is currently paused, it starts playing the audio.
+   * @param {boolean} [loop=false] - Determines whether the audio should loop.
+   */
   play(loop = false) {
     if (globalMute) return;
     this.audio.loop = loop;
@@ -19,6 +26,10 @@ class Sound {
     }
   }
 
+  /**
+   * Stops the audio playback.
+   * This function pauses the audio and resets the playback time to the beginning.
+   */
   stop() {
     this.audio.pause();
     this.audio.currentTime = 0;

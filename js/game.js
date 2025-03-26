@@ -161,6 +161,7 @@ function playMelodie() {
  */
 function playGameOverSound() {
   mainMelodie.stop();
+  stopAllSoundsExcept([gameOverSound]);
   gameOverSound.play();
 }
 
@@ -234,4 +235,12 @@ function clearAllIntervals() {
  */
 function setSoundStatusMute() {
   saveToLocalStorage(false);
+}
+
+function stopAllSoundsExcept(exceptions = []) {
+  allSounds.forEach(sound => {
+    if (!exceptions.includes(sound)) {
+      sound.stop();
+    }
+  });
 }
