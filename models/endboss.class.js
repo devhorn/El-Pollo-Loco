@@ -168,9 +168,9 @@ class Endboss extends MoveableObject {
    * Stops the main melody, plays the victory sound, and clears all intervals.
    */
   gameEndTasks() {
+    clearAllIntervals();
     mainMelodie.stop();
     stopAllSoundsExcept([youWinSound]);
     youWinSound.play();
-    clearAllIntervals();
   }
 }
