@@ -263,9 +263,9 @@ class Character extends MoveableObject {
   handleDeathAnimation() {
     if (this.isDead()) {
       this.playAnimation(this.imagesDead);
-      clearAllIntervals();
       this.showGameOverScreen();
       playGameOverSound();
+      clearAllIntervals();
       return true;
     }
     return false;

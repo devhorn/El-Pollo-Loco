@@ -58,6 +58,7 @@ function resetGame() {
   if (world) {
     world.stopAllIntervals();
   }
+  world = null;
   coins = [];
   bottles = [];
   addCoins();
